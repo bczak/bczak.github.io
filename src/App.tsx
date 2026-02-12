@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import tw, { styled } from "twin.macro";
+import { TimePicker } from "./components/TimePicker";
 
 const Container = tw.div`max-w-4xl mx-auto py-16 px-4`;
 
@@ -24,10 +25,6 @@ const SkillsTitle = tw.h2`text-4xl font-bold`;
 const SkillsList = tw.ul`text-xl font-bold`;
 const Skill = tw.li`inline-block mr-8`;
 
-const Experience = tw.section`mt-12`;
-const Job = tw.h2`text-4xl font-bold`;
-const Company = tw.h3`text-3xl font-medium`;
-const JobDescription = tw.p`text-lg`;
 import {
   CalendarIcon,
   EnvelopeIcon,
@@ -36,7 +33,37 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/solid";
 
+const Experience = tw.section`mt-12`;
+const Job = tw.h2`text-4xl font-bold`;
+const Company = tw.h3`text-3xl font-medium`;
+const JobDescription = tw.p`text-lg`;
+
+const TimePickerSection = tw.section`mt-12`;
+const TimePickerTitle = tw.h2`text-4xl font-bold border-b-4 border-black pb-2 uppercase`;
+const OpenButton = styled.button`
+  margin-top: 16px;
+  padding: 12px 24px;
+  border-radius: 20px;
+  border: none;
+  background: #65558f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: background 0.15s;
+  &:hover {
+    background: #7c6ca6;
+  }
+`;
+const SelectedTime = tw.p`text-lg mt-2`;
+
 const App: React.FC = () => {
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [picker24Open, setPicker24Open] = useState(false);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedTime24, setSelectedTime24] = useState<string | null>(null);
+
   return (
     <Container>
       <Header>
@@ -97,6 +124,48 @@ const App: React.FC = () => {
           </EducationDescription>
         </Education>
       </Main>
+
+      <TimePickerSection>
+        <TimePickerTitle>Time Picker Demo</TimePickerTitle>
+        <OpenButton onClick={() => setPickerOpen(true)}>
+          Open 12h Time Picker
+        </OpenButton>
+        {selectedTime && <SelectedTime>Selected: {selectedTime}</SelectedTime>}
+        <TimePicker
+          open={pickerOpen}
+          onClose={() => setPickerOpen(false)}
+          onConfirm={(h, m) => {
+            const period = h >= 12 ? "PM" : "AM";
+            const display = h === 0 ? 12 : h > 12 ? h - 12 : h;
+            setSelectedTime(
+              `${display}:${m.toString().padStart(2, "0")} ${period}`
+            );
+          }}
+          initialHours={10}
+          initialMinutes={30}
+          format="12h"
+        />
+
+        <br />
+        <OpenButton onClick={() => setPicker24Open(true)}>
+          Open 24h Time Picker
+        </OpenButton>
+        {selectedTime24 && (
+          <SelectedTime>Selected: {selectedTime24}</SelectedTime>
+        )}
+        <TimePicker
+          open={picker24Open}
+          onClose={() => setPicker24Open(false)}
+          onConfirm={(h, m) => {
+            setSelectedTime24(
+              `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`
+            );
+          }}
+          initialHours={14}
+          initialMinutes={45}
+          format="24h"
+        />
+      </TimePickerSection>
     </Container>
   );
 };
