@@ -11,7 +11,7 @@ export const config = {
   siteUrl: 'https://bczak.github.io/bd/',
   // Фото для страницы «Кто такой Жак» (из public/photos/<год>/).
   aboutPhotos: {
-    hero: '2025/026.jpg',
+    hero: '2025/zhak.jpg',
     groot: '2025/025.jpg',
     friends: '2025/003.jpg',
   },
