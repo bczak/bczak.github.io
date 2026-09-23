@@ -54,13 +54,13 @@ function about() {
 
       <figure class="panel p-2 md:col-span-3 md:row-span-2 min-h-64 relative">
         <img src="${img(p.friends)}" alt="Жак с друзьями" class="w-full h-full object-cover" loading="lazy" />
-        <figcaption class="caption absolute bottom-4 left-4 right-4">Команда. Без неё ни один релиз не выходит.</figcaption>
+        <figcaption class="caption absolute bottom-4 left-4 right-4">Команда. Без неё ни один релиз не выходит. Даже из сауны.</figcaption>
       </figure>
 
       <div class="panel halftone-green p-5 md:col-span-3 flex flex-col gap-3">
         <p class="caption self-start">Днём</p>
         <p class="text-lg leading-snug">Веб-разработчик. Пишет фронтенд, бэкенд и смарт-контракты. Верит в блокчейн, но деньги хранит в кошельке.</p>
-        <p class="font-mono text-sm bg-ink text-green px-3 py-2 self-start">$ npm run build && deploy --prod</p>
+        <p class="font-mono text-sm bg-ink text-green px-3 py-2 self-start">$ bun run build && deploy --prod</p>
       </div>
 
       <div class="panel halftone-red p-5 md:col-span-2 text-white flex flex-col gap-3">

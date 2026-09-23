@@ -13,7 +13,7 @@ export const config = {
   aboutPhotos: {
     hero: 'zhak.jpg',
     groot: '2025/025.jpg',
-    friends: '2025/003.jpg',
+    friends: 'team.jpg',
   },
   // Подписи к прошлым вечеринкам. Фото подхватываются из src/photos.json по году.
   years: {
