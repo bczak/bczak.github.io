@@ -31,7 +31,7 @@ function cover() {
     </div>
     <figure class="panel p-2 relative">
       <img src="${img(config.aboutPhotos.hero)}" alt="Жак" class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
-      <figcaption class="caption absolute bottom-4 left-4 right-4">Главный герой. Бранч, борода и Pixel в кармане.</figcaption>
+      <figcaption class="caption absolute bottom-4 left-4 right-4">Главный герой. Тот самый, ради кого всё это.</figcaption>
       <span class="sticker bg-yellow absolute -top-4 -right-3 rotate-6 text-lg md:text-2xl">Бум!</span>
     </figure>
   </div>
@@ -77,6 +77,17 @@ function about() {
         <img src="${img(p.groot)}" alt="Печенька с Грутом" class="w-full h-48 md:h-full object-cover" loading="lazy" />
         <figcaption class="caption absolute bottom-4 left-4 right-4">Marvel и Star Wars. Обе стороны Силы.</figcaption>
       </figure>
+
+      <figure class="panel p-2 md:col-span-3 relative min-h-64">
+        <img src="${img(p.tacoBed)}" alt="Жак и Тако в кровати" class="w-full h-full object-cover" loading="lazy" />
+        <figcaption class="caption absolute bottom-4 left-4 right-4">Тако. Спит в его кровати, ест с его стола.</figcaption>
+      </figure>
+
+      <div class="panel p-5 md:col-span-3 flex flex-col gap-3 relative">
+        <p class="caption self-start">Дома</p>
+        <p class="text-lg leading-snug">Сертифицированный dog dad. Пёс Тако: диванный спринтер, главный ревьюер кода и единственный, кому разрешено будить его в семь утра.</p>
+        <img src="${img(p.tacoFace)}" alt="Тако" class="w-28 h-28 object-cover border-4 border-ink shadow-[4px_4px_0_#12091f] self-end -rotate-3 mt-auto" loading="lazy" />
+      </div>
 
       <div class="panel halftone-red p-5 md:col-span-3 text-white flex flex-col gap-3">
         <p class="caption self-start">По воскресеньям</p>
