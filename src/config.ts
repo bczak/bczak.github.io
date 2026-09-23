@@ -14,6 +14,8 @@ export const config = {
     hero: 'zhak.jpg',
     groot: '2025/025.jpg',
     friends: 'team.jpg',
+    kateSelfie: 'kate-selfie.jpg',
+    kateSunset: 'kate-sunset.jpg',
     tacoBed: 'taco-bed.jpg',
     tacoFace: 'taco-face.jpg',
   },

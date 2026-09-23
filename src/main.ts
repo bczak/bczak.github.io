@@ -21,8 +21,8 @@ function cover() {
         <span class="sticker bg-red text-white rotate-3">Спецвыпуск</span>
       </div>
       <h1 class="display outline-text text-[22vw] md:text-[9rem] lg:text-[11rem] my-6 md:my-8 leading-[.85]">Жаку<br>${config.age}</h1>
-      <p class="bubble text-lg md:text-2xl font-medium max-w-md">
-        Ежегодный сбор в кальянной. Ничего лишнего: свои люди, разговоры, дым и смех.
+      <p class="bubble display text-2xl md:text-4xl max-w-md">
+        Мстители, общий сбор!
       </p>
       <div class="flex justify-between items-end mt-8 font-mono text-sm">
         <span>${config.dateText}</span>
@@ -76,6 +76,17 @@ function about() {
       <figure class="panel p-2 md:col-span-2 relative">
         <img src="${img(p.groot)}" alt="Печенька с Грутом" class="w-full h-48 md:h-full object-cover" loading="lazy" />
         <figcaption class="caption absolute bottom-4 left-4 right-4">Marvel и Star Wars. Обе стороны Силы.</figcaption>
+      </figure>
+
+      <div class="panel halftone-yellow p-5 md:col-span-3 flex flex-col gap-3 relative">
+        <p class="caption self-start bg-red text-white">Главная героиня</p>
+        <p class="text-lg leading-snug">Катя. Любовь всей его жизни. Появляется в каждом эпизоде и в каждом кадре, где он улыбается.</p>
+        <img src="${img(p.kateSunset)}" alt="Жак и Катя на закате" class="w-36 h-28 object-cover border-4 border-ink shadow-[4px_4px_0_#12091f] self-end rotate-2 mt-auto" loading="lazy" />
+      </div>
+
+      <figure class="panel p-2 md:col-span-3 relative min-h-64">
+        <img src="${img(p.kateSelfie)}" alt="Жак и Катя" class="w-full h-full object-cover" loading="lazy" />
+        <figcaption class="caption absolute bottom-4 left-4 right-4">Дуэт. Всё остальное — массовка.</figcaption>
       </figure>
 
       <figure class="panel p-2 md:col-span-3 relative min-h-64">
