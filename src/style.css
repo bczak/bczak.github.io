@@ -16,6 +16,7 @@
 :root { --shadow-comic: 6px 6px 0 var(--color-ink); }
 
 html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {

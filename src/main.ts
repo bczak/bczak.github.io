@@ -111,7 +111,7 @@ function history() {
   <div class="page-inner">
     <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
       <h2 class="display text-white text-4xl md:text-6xl drop-shadow-[4px_4px_0_#12091f]">Предыдущие эпизоды</h2>
-      <div role="tablist" class="flex gap-3">${tabs}</div>
+      <div role="tablist" class="flex flex-wrap gap-3">${tabs}</div>
     </div>
     <div class="panel p-4 md:p-8">${grids}</div>
   </div>
