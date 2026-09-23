@@ -1,6 +1,6 @@
 # Жаку 26 — комикс-приглашение
 
-Статический сайт на GitHub Pages: https://bczak.github.io/bd/
+Статический сайт на GitHub Pages: https://bczak.github.io/
 
 - `npm run dev` — локально
 - `npm run build` — сборка в `dist/`

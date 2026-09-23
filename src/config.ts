@@ -8,7 +8,7 @@ export const config = {
   address: 'Mánesova 59, Praha 2',
   mapUrl: 'https://maps.google.com/?q=Cloud+Room+M%C3%A1nesova+59+Praha',
   wishlistUrl: 'https://t.me/bczak_whishlist',
-  siteUrl: 'https://bczak.github.io/bd/',
+  siteUrl: 'https://bczak.github.io/',
   // Фото для страницы «Кто такой Жак» (из public/photos/<год>/).
   aboutPhotos: {
     hero: 'zhak.jpg',
