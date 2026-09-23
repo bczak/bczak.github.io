@@ -30,8 +30,8 @@ function cover() {
       </div>
     </div>
     <figure class="panel p-2 relative">
-      <img src="${img(config.aboutPhotos.hero)}" alt="Жак в кальянной" class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
-      <figcaption class="caption absolute bottom-4 left-4 right-4">Главный герой. Обычно с кальяном, всегда с Pixel.</figcaption>
+      <img src="${img(config.aboutPhotos.hero)}" alt="Жак" class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
+      <figcaption class="caption absolute bottom-4 left-4 right-4">Главный герой. Бранч, борода и Pixel в кармане.</figcaption>
       <span class="sticker bg-yellow absolute -top-4 -right-3 rotate-6 text-lg md:text-2xl">Бум!</span>
     </figure>
   </div>
