@@ -49,7 +49,7 @@ function about() {
       <div class="panel p-5 md:col-span-3 flex flex-col gap-3">
         <p class="caption self-start">14.10.2000. Где-то запускается новый процесс.</p>
         <p class="text-lg leading-snug">Родился, посмотрел на мир и решил, что его надо переписать. Желательно на TypeScript.</p>
-        <p class="bubble mt-auto text-base"><span class="font-mono">git init жизнь</span></p>
+        <p class="bubble mt-auto text-base"><span class="font-mono">git init life</span></p>
       </div>
 
       <figure class="panel p-2 md:col-span-3 md:row-span-2 min-h-64 relative">
