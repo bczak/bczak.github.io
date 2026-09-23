@@ -78,9 +78,15 @@ function about() {
         <figcaption class="caption absolute bottom-4 left-4 right-4">Marvel и Star Wars. Обе стороны Силы.</figcaption>
       </figure>
 
-      <div class="panel p-5 md:col-span-6 flex flex-col md:flex-row md:items-center gap-4">
-        <p class="text-lg leading-snug md:flex-1">Ночью общается с нейросетями. Утверждает, что они его понимают лучше, чем HR.</p>
-        <p class="bubble text-base md:max-w-sm">«Я не сгенерирован. Меня так собрали. Вручную.»</p>
+      <div class="panel halftone-red p-5 md:col-span-3 text-white flex flex-col gap-3">
+        <p class="caption self-start">По воскресеньям</p>
+        <p class="text-lg leading-snug">Формула-1. Болеет за Хэмилтона и Ferrari, желательно одновременно. Слово <span class="strike">Mercedes</span> в его присутствии лучше не произносить.</p>
+        <p class="font-mono text-sm bg-ink text-sw px-3 py-2 self-start">Lights out and away we go</p>
+      </div>
+
+      <div class="panel p-5 md:col-span-3 flex flex-col gap-4">
+        <p class="text-lg leading-snug">Ночью общается с нейросетями. Утверждает, что они его понимают лучше, чем HR.</p>
+        <p class="bubble text-base mt-auto">«Я не сгенерирован. Меня так собрали. Вручную.»</p>
       </div>
     </div>
   </div>
