@@ -3,7 +3,7 @@ export const config = {
   age: 26,
   episode: 'XXVI',
   dateText: '14 октября, среда',
-  timeText: 'с 19:00',                // TODO
+  timeText: 'с 18:00',
   venue: 'Cloud Room',
   address: 'Mánesova 59, Praha 2',
   mapUrl: 'https://maps.google.com/?q=Cloud+Room+M%C3%A1nesova+59+Praha',
