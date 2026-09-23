@@ -2,7 +2,7 @@
 export const config = {
   age: 26,
   episode: 'XXVI',
-  dateText: '17 октября, суббота',   // TODO: точная дата
+  dateText: '14 октября, среда',
   timeText: 'с 19:00',                // TODO
   venue: 'Кальянная',                 // TODO: название
   address: 'адрес скину в чат',       // TODO: адрес
