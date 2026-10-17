@@ -1,9 +1,10 @@
-# Жаку 26 — комикс-приглашение
+# bczak.github.io — CV
 
-Статический сайт на GitHub Pages: https://bczak.github.io/
+Jakhongir Tashpulatov, full-stack Web3 developer. Live at https://bczak.github.io/ in English, Czech and Russian.
 
-- `npm run dev` — локально
-- `npm run build` — сборка в `dist/`
-- Тексты, дата, место, ссылки: `src/config.ts`
-- Добавить фото за год: `python3 scripts/add_year.py 2026 ~/Pictures/bd-2026` (нужен `pip install pillow`), потом подпись в `config.years`
-- Пуш в `main` деплоит автоматически (`.github/workflows/deploy.yml`)
+- `npm run dev` — run locally
+- `npm run build` — build into `dist/`
+- All text and facts: `src/content.ts` (one dictionary per language; TypeScript flags missing keys)
+- Language: `?lang=cs|ru`, otherwise the browser language, otherwise English
+- Print / Save as PDF gives a one-page A4 CV in the current language. `?print` shows that sheet on screen.
+- Pushing to `main` deploys automatically (`.github/workflows/deploy.yml`)
