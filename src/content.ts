@@ -26,15 +26,17 @@ export const jobs: { id: JobId; org?: string; url?: string; from: YM; to?: YM; p
   { id: 'freelance', from: [2016, 9], to: [2026, 3] },
 ]
 
-export type ProjectId = 'thyme' | 'findex' | 'bckit' | 'qanda' | 'm3you' | 'nfton'
+export type ProjectId = 'thyme' | 'findex' | 'bckit' | 'qanda' | 'unbox' | 'm3you' | 'ddog'
 export type Badge = 'live' | 'studio' | 'oss' | 'winner'
-export const projects: { id: ProjectId; name: string; url?: string; badge: Badge; tags: string[] }[] = [
+// printed: false keeps a project off the one-page print CV.
+export const projects: { id: ProjectId; name: string; url?: string; badge: Badge; tags: string[]; printed?: boolean }[] = [
   { id: 'thyme', name: 'thyme/labs', url: 'https://thymelabs.io', badge: 'live', tags: ['Safe', 'Zodiac Roles', 'viem', 'Deno', 'Subgraphs'] },
   { id: 'findex', name: 'Findex', url: 'https://findex.io', badge: 'studio', tags: ['Solidity', 'Uniswap V4', 'wagmi', 'Indexing'] },
   { id: 'bckit', name: 'BCkit', url: 'https://bckit.cc', badge: 'studio', tags: ['EVM', 'Calldata', 'Simulation'] },
   { id: 'qanda', name: 'QandA.fun', url: 'https://qanda.fun', badge: 'studio', tags: ['Realtime', 'TypeScript', 'Mobile'] },
+  { id: 'unbox', name: 'Unbox Quest', url: 'https://unbox.quest', badge: 'studio', tags: ['React', 'Vite', 'PWA', 'Puzzle'], printed: false },
   { id: 'm3you', name: 'm3you', url: 'https://github.com/bczak/m3you', badge: 'oss', tags: ['React', 'CSS', 'Design system'] },
-  { id: 'nfton', name: 'NFTON.space', badge: 'winner', tags: ['TON', 'NFT', 'Telegram Web App'] },
+  { id: 'ddog', name: 'dDog', badge: 'winner', tags: ['TON', 'NFT', 'Telegram Web App'] },
 ]
 
 // Shown as case studies, with a screenshot of the live site from public/shots/.
@@ -198,7 +200,8 @@ const en = {
       bckit: 'Free browser toolkit for web3 developers. Decode calldata, impersonate any address in a dApp, review token approvals and inspect on-chain state.',
       qanda: 'Live quizzes for the whole room. Up to 100 players join from their phones with a game code; questions can carry images, audio and video.',
       m3you: 'Material Design 3 Expressive component library for React. Plain CSS, design tokens as CSS custom properties, no build plugins.',
-      nfton: 'Free-to-play-to-earn game inside a Telegram Web App, with TON and NFTs. Built at Hack-a-TON × Prague in a team of four; won the Best TWA category.',
+      unbox: 'An offline co-op puzzle for one to eight players. Everyone enters the same seed and gets a different box; what opens yours is written on theirs.',
+      ddog: 'Free-to-play-to-earn game inside a Telegram Web App, with TON and NFTs. Built at Hack-a-TON × Prague in a team of four; won the Best TWA category.',
     },
   },
   activity: {
@@ -229,7 +232,7 @@ const en = {
   },
   awards: {
     title: 'Awards',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Winner of the Best TWA (Telegram Web App) category with team NFTON.space' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Winner of the Best TWA (Telegram Web App) category with team dDog' },
   },
   languages: {
     title: 'Languages',
@@ -366,7 +369,8 @@ const cs: Dict = {
       bckit: 'Bezplatná sada nástrojů pro web3 vývojáře v prohlížeči. Dekódování calldata, přihlášení do dAppky za libovolnou adresu, kontrola schválení tokenů a inspekce on-chain stavu.',
       qanda: 'Živé kvízy pro celou místnost. Až 100 hráčů se připojí z telefonu pomocí herního kódu; otázky mohou obsahovat obrázky, zvuk i video.',
       m3you: 'Knihovna komponent Material Design 3 Expressive pro React. Čisté CSS, design tokeny jako CSS proměnné, žádné pluginy do bundleru.',
-      nfton: 'Free-to-play-to-earn hra v Telegram Web App s TON a NFT. Vznikla na Hack-a-TON × Prague ve čtyřčlenném týmu a vyhrála kategorii Best TWA.',
+      unbox: 'Offline kooperativní hlavolam pro jednoho až osm hráčů. Všichni zadají stejný seed a každý dostane jinou krabičku; co otevře tu vaši, je napsané na té jejich.',
+      ddog: 'Free-to-play-to-earn hra v Telegram Web App s TON a NFT. Vznikla na Hack-a-TON × Prague ve čtyřčlenném týmu a vyhrála kategorii Best TWA.',
     },
   },
   activity: {
@@ -397,7 +401,7 @@ const cs: Dict = {
   },
   awards: {
     title: 'Ocenění',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Vítěz kategorie Best TWA (Telegram Web App) s týmem NFTON.space' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Vítěz kategorie Best TWA (Telegram Web App) s týmem dDog' },
   },
   languages: {
     title: 'Jazyky',
@@ -532,7 +536,8 @@ const ru: Dict = {
       bckit: 'Бесплатный браузерный набор инструментов для web3-разработчиков. Декодирование calldata, вход в dApp под любым адресом, проверка апрувов токенов и просмотр on-chain состояния.',
       qanda: 'Живые квизы для всей комнаты. До 100 игроков подключаются с телефонов по коду игры; в вопросах — картинки, аудио и видео.',
       m3you: 'Библиотека компонентов Material Design 3 Expressive для React. Чистый CSS, дизайн-токены в CSS-переменных, без плагинов для сборщика.',
-      nfton: 'Free-to-play-to-earn игра в Telegram Web App на TON с NFT. Сделана на Hack-a-TON × Prague командой из четырёх человек и победила в номинации Best TWA.',
+      unbox: 'Офлайн-головоломка для совместной игры от одного до восьми человек. Все вводят один и тот же сид и получают разные коробки: то, что открывает вашу, написано на чужой.',
+      ddog: 'Free-to-play-to-earn игра в Telegram Web App на TON с NFT. Сделана на Hack-a-TON × Prague командой из четырёх человек и победила в номинации Best TWA.',
     },
   },
   activity: {
@@ -563,7 +568,7 @@ const ru: Dict = {
   },
   awards: {
     title: 'Награды',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Победа в номинации Best TWA (Telegram Web App) в команде NFTON.space' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Победа в номинации Best TWA (Telegram Web App) в команде dDog' },
   },
   languages: {
     title: 'Языки',

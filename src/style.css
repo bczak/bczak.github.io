@@ -254,7 +254,11 @@
 
   /* Projects */
   .projects { display: grid; gap: 1rem; }
-  @media (min-width: 720px) { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 720px) {
+    .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* An odd card out takes the whole last row. */
+    .project:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
   .project { display: flex; flex-direction: column; min-height: 16rem; padding: 1.6rem; }
   .project-top { display: flex; align-items: center; justify-content: space-between; }
   .badge { display: inline-flex; align-items: center; gap: .45rem; padding: .32rem .65rem; border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-muted); font: 500 .72rem/1 var(--font-mono); }

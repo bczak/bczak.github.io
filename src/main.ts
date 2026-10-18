@@ -514,7 +514,7 @@ function printCv(t: Dict, lang: Lang) {
     <section class="pcv-projects-wrap">
       <h2 class="pcv-h">${t.print.projects}</h2>
       <div class="pcv-projects">
-        ${projects.map(p => `
+        ${projects.filter(p => p.printed !== false).map(p => `
         <article>
           <h3>${p.name}${p.url ? ` <a href="${p.url}">${host(p.url)}</a>` : ' <span>Hack-a-TON × Prague</span>'}</h3>
           <p>${firstSentence(t.projects.items[p.id])}</p>
