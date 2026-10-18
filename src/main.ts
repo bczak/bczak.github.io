@@ -3,7 +3,8 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './style.css'
 import { encode } from 'uqr'
-import { LANGS, awards, dicts, education, jobs, profile, projects, spoken, stack, type Dict, type Lang, type StackId, type YM } from './content'
+import { LANGS, awards, dicts, education, jobs, profile, projects, spoken, stack, type Dict, type Lang, type Plural, type StackId, type YM } from './content'
+import gh from './github.json'
 
 // Lucide icons (ISC), inlined.
 const icons = {
@@ -222,11 +223,93 @@ function projectsSection(t: Dict) {
 </section>`
 }
 
+/* GitHub activity: src/github.json, refreshed on every deploy. Weeks start on Monday. */
+
+const ghDay = (i: number) => new Date(Date.parse(gh.from) + i * 86_400_000)
+const ghOffset = (ghDay(0).getUTCDay() + 6) % 7
+const ghWeeks = Math.ceil((ghOffset + gh.counts.length) / 7)
+
+// Levels split the active days into quartiles, so one huge day doesn't flatten the rest.
+const ghLevels = (() => {
+  const sorted = gh.counts.filter(c => c > 0).sort((a, b) => a - b)
+  const cuts = [.25, .5, .75].map(p => sorted[Math.floor(p * (sorted.length - 1))] ?? 0)
+  return gh.counts.map(c => c && 1 + cuts.filter(cut => c > cut).length)
+})()
+
+const ghStats = (() => {
+  let run = 0, longest = 0, best = 0
+  gh.counts.forEach((c, i) => {
+    run = c ? run + 1 : 0
+    longest = Math.max(longest, run)
+    if (c > gh.counts[best]) best = i
+  })
+  return { longest, best, active: gh.counts.filter(Boolean).length }
+})()
+
+const plural = (lang: Lang, n: number, p: Plural) => p[new Intl.PluralRules(lang).select(n)] ?? p.other
+const utc = (lang: Lang, o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(lang, { timeZone: 'UTC', ...o })
+const contributions = (t: Dict, lang: Lang, n: number) => `${n.toLocaleString(lang)} ${plural(lang, n, t.activity.contributions)}`
+
+function dayTip(t: Dict, lang: Lang, i: number) {
+  const n = gh.counts[i]
+  return `<b>${n ? contributions(t, lang, n) : t.activity.none}</b> · ${utc(lang, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(ghDay(i))}`
+}
+
+function activity(t: Dict, lang: Lang) {
+  const a = t.activity
+  const { longest, best, active } = ghStats
+  // GitHub's own headline number; it covers a few more days than the grid shows.
+  const total = gh.total
+  const cells = gh.counts.map((_, i) => {
+    const w = Math.floor((i + ghOffset) / 7), d = (i + ghOffset) % 7
+    return `<i data-day="${i}" data-l="${ghLevels[i]}" style="grid-area:${d + 2}/${w + 1};--s:${w + d}"></i>`
+  }).join('')
+  const months = gh.counts.map((_, i) => {
+    const date = ghDay(i).getUTCDate(), w = Math.floor((i + ghOffset) / 7)
+    const label = (date === 1 || (i === 0 && date <= 10)) && w < ghWeeks - 1
+    return label ? `<span class="gh-month" style="grid-column:${w + 1}">${t.months[ghDay(i).getUTCMonth()]}</span>` : ''
+  }).join('')
+  // Mon, Wed, Fri. 2024-01-01 was a Monday.
+  const weekdays = [0, 1, 2, 3, 4, 5, 6].map(d =>
+    `<span>${d % 2 || d > 4 ? '' : utc(lang, { weekday: 'short' }).format(Date.UTC(2024, 0, 1 + d))}</span>`).join('')
+  const share = new Intl.NumberFormat(lang, { style: 'percent' }).format(gh.private / total)
+  const days = new Intl.NumberFormat(lang, { style: 'unit', unit: 'day', unitDisplay: 'long' }).format(longest)
+  return `
+<section class="section wrap" id="activity">
+  ${head('04', a.label, a.title)}
+  <article class="card gh reveal">
+    <header class="gh-head">
+      <div>
+        <p class="gh-total"><b>${total.toLocaleString(lang)}</b>${plural(lang, total, a.contributions)} ${a.lastYear}</p>
+        ${gh.private ? `<p class="gh-note">${a.private.replace('{n}', share)}</p>` : ''}
+      </div>
+      <a class="btn btn-ghost" href="${profile.github}" target="_blank" rel="noopener">${svg('github')}${a.open}${svg('arrow', 'icon-sm')}</a>
+    </header>
+    <div class="gh-body">
+      <div class="gh-wd" aria-hidden="true"><span></span>${weekdays}</div>
+      <div class="gh-scroll">
+        <div class="gh-cal" style="--weeks:${ghWeeks}" role="img" aria-label="${contributions(t, lang, total)} ${a.lastYear}">${months}${cells}</div>
+      </div>
+    </div>
+    <div class="gh-meta">
+      <p>${a.updated} ${utc(lang, { day: 'numeric', month: 'short', year: 'numeric' }).format(Date.parse(gh.updated))}</p>
+      <p class="gh-legend" aria-hidden="true">${a.less}${[0, 1, 2, 3, 4].map(l => `<i data-l="${l}"></i>`).join('')}${a.more}</p>
+    </div>
+    <dl class="gh-stats">
+      <div><dt>${a.active.replace('{n}', gh.counts.length.toLocaleString(lang))}</dt><dd>${active.toLocaleString(lang)}</dd></div>
+      <div><dt>${a.streak}</dt><dd>${days}</dd></div>
+      <div><dt>${a.best} · ${utc(lang, { day: 'numeric', month: 'short' }).format(ghDay(best))}</dt><dd>${gh.counts[best].toLocaleString(lang)}</dd></div>
+    </dl>
+  </article>
+  <div class="gh-tip" role="tooltip" data-tip></div>
+</section>`
+}
+
 function stackSection(t: Dict) {
   const groups = Object.entries(stack) as [StackId, string[]][]
   return `
 <section class="section wrap" id="stack">
-  ${head('04', t.stack.label, t.stack.title)}
+  ${head('05', t.stack.label, t.stack.title)}
   <div class="stack">
     ${groups.map(([id, items]) => `
     <article class="card stack-group reveal">
@@ -240,7 +323,7 @@ function stackSection(t: Dict) {
 function background(t: Dict) {
   return `
 <section class="section wrap" id="background">
-  ${head('05', t.background.label, t.background.title)}
+  ${head('06', t.background.label, t.background.title)}
   <div class="bg-grid3">
     <article class="card info reveal">
       <h3>${svg('cap')}${t.education.title}</h3>
@@ -276,7 +359,7 @@ function contact(t: Dict) {
   return `
 <section class="section wrap" id="contact">
   <div class="card contact reveal">
-    <p class="eyebrow"><span>06</span>${t.contact.label}</p>
+    <p class="eyebrow"><span>07</span>${t.contact.label}</p>
     <h2 class="contact-title">${t.contact.title}<br><span class="text-gradient">${t.contact.title2}</span></h2>
     <p class="contact-body">${t.contact.body}</p>
     <div class="contact-email">
@@ -303,7 +386,7 @@ function footer(t: Dict) {
 }
 
 const screen = (t: Dict, lang: Lang) =>
-  nav(t, lang) + `<main>${hero(t)}${marquee()}${about(t)}${experience(t, lang)}${projectsSection(t)}${stackSection(t)}${background(t)}${contact(t)}</main>` + footer(t)
+  nav(t, lang) + `<main>${hero(t)}${marquee()}${about(t)}${experience(t, lang)}${projectsSection(t)}${activity(t, lang)}${stackSection(t)}${background(t)}${contact(t)}</main>` + footer(t)
 
 /* ---------- print ---------- */
 
@@ -430,6 +513,9 @@ function render(lang: Lang, animate: boolean) {
   observers.forEach(o => o.disconnect())
   observers = [revealOnScroll(animate), trackSections()]
   confirmTx()
+  // On narrow screens the calendar scrolls; start at the latest week.
+  const cal = app.querySelector('.gh-scroll')
+  if (cal) cal.scrollLeft = cal.scrollWidth
 }
 
 function revealOnScroll(animate: boolean) {
@@ -505,7 +591,24 @@ document.addEventListener('pointermove', e => {
   card.style.setProperty('--my', `${e.clientY - r.top}px`)
 })
 
-const onScroll = () => app.querySelector('[data-nav-bar]')?.classList.toggle('is-scrolled', scrollY > 8)
+// Day tooltip on the activity calendar. Fixed, so the scrolling calendar doesn't clip it.
+document.addEventListener('pointerover', e => {
+  const tip = app.querySelector<HTMLElement>('[data-tip]')
+  const cell = (e.target as HTMLElement).closest?.<HTMLElement>('[data-day]')
+  if (!tip) return
+  if (!cell) { tip.classList.remove('is-on'); return }
+  tip.innerHTML = dayTip(dicts[current], current, Number(cell.dataset.day))
+  const r = cell.getBoundingClientRect()
+  const half = tip.offsetWidth / 2 + 8
+  tip.style.left = `${Math.min(Math.max(r.left + r.width / 2, half), innerWidth - half)}px`
+  tip.style.top = `${r.top}px`
+  tip.classList.add('is-on')
+})
+
+const onScroll = () => {
+  app.querySelector('[data-nav-bar]')?.classList.toggle('is-scrolled', scrollY > 8)
+  app.querySelector('[data-tip]')?.classList.remove('is-on')
+}
 addEventListener('scroll', onScroll, { passive: true })
 
 // The browser uses the title as the PDF file name.

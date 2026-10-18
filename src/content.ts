@@ -7,12 +7,15 @@ export type Lang = (typeof LANGS)[number]
 /** [year, month 1-12] */
 export type YM = [number, number]
 
+/** Word forms per Intl.PluralRules category. */
+export type Plural = Partial<Record<Intl.LDMLPluralRule, string>> & { other: string }
+
 export const profile = {
   email: 'tashpulatov.jakhongir@gmail.com',
   site: 'https://bczak.github.io/',
   github: 'https://github.com/bczak',
   linkedin: 'https://www.linkedin.com/in/bczak',
-  telegram: 'https://t.me/bczak',
+  telegram: 'https://t.me/tashpik',
 }
 
 export type JobId = 'neovate' | 'kindred' | 'kb' | 'freelance'
@@ -154,6 +157,21 @@ const en = {
       nfton: 'Free-to-play-to-earn game inside a Telegram Web App, with TON and NFTs. Built at Hack-a-TON × Prague in a team of four; won the Best TWA category.',
     },
   },
+  activity: {
+    label: 'Activity',
+    title: 'A year on GitHub',
+    contributions: { one: 'contribution', other: 'contributions' } as Plural,
+    none: 'No contributions',
+    lastYear: 'in the last year',
+    private: '{n} of them are in private repositories, so GitHub shows them only as a count.',
+    active: 'active days out of {n}',
+    streak: 'longest streak',
+    best: 'best day',
+    updated: 'Updated',
+    less: 'Less',
+    more: 'More',
+    open: 'Open GitHub',
+  },
   stack: {
     label: 'Stack',
     title: 'Tools I reach for',
@@ -290,6 +308,21 @@ const cs: Dict = {
       nfton: 'Free-to-play-to-earn hra v Telegram Web App s TON a NFT. Vznikla na Hack-a-TON × Prague ve čtyřčlenném týmu a vyhrála kategorii Best TWA.',
     },
   },
+  activity: {
+    label: 'Aktivita',
+    title: 'Rok na GitHubu',
+    contributions: { one: 'příspěvek', few: 'příspěvky', many: 'příspěvku', other: 'příspěvků' },
+    none: 'Žádné příspěvky',
+    lastYear: 'za poslední rok',
+    private: '{n} z nich je v soukromých repozitářích, takže je GitHub ukazuje jen jako počet.',
+    active: 'aktivních dní z {n}',
+    streak: 'nejdelší série',
+    best: 'nejlepší den',
+    updated: 'Aktualizováno',
+    less: 'Méně',
+    more: 'Více',
+    open: 'Otevřít GitHub',
+  },
   stack: {
     label: 'Technologie',
     title: 'Nástroje, po kterých sahám',
@@ -423,6 +456,21 @@ const ru: Dict = {
       m3you: 'Библиотека компонентов Material Design 3 Expressive для React. Чистый CSS, дизайн-токены в CSS-переменных, без плагинов для сборщика.',
       nfton: 'Free-to-play-to-earn игра в Telegram Web App на TON с NFT. Сделана на Hack-a-TON × Prague командой из четырёх человек и победила в номинации Best TWA.',
     },
+  },
+  activity: {
+    label: 'Активность',
+    title: 'Год на GitHub',
+    contributions: { one: 'вклад', few: 'вклада', many: 'вкладов', other: 'вклада' },
+    none: 'Нет вкладов',
+    lastYear: 'за последний год',
+    private: '{n} из них — в приватных репозиториях, поэтому GitHub показывает их только числом.',
+    active: 'активных дней из {n}',
+    streak: 'самая длинная серия',
+    best: 'лучший день',
+    updated: 'Обновлено',
+    less: 'Меньше',
+    more: 'Больше',
+    open: 'Открыть GitHub',
   },
   stack: {
     label: 'Стек',
