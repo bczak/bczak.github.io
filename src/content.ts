@@ -37,6 +37,15 @@ export const projects: { id: ProjectId; name: string; url?: string; badge: Badge
   { id: 'nfton', name: 'NFTON.space', badge: 'winner', tags: ['TON', 'NFT', 'Telegram Web App'] },
 ]
 
+// Shown as case studies, with a screenshot of the live site from public/shots/.
+export const cases: { id: ProjectId; shot: string }[] = [
+  { id: 'thyme', shot: '/shots/thyme.webp' },
+  { id: 'findex', shot: '/shots/findex.webp' },
+]
+
+// Public figures from the findex.io homepage.
+export const findexStats = { checked: [2026, 10] as YM, chains: 3, indexes: 19, aum: 2_500_000 }
+
 export type StackId = 'web3' | 'frontend' | 'backend' | 'data' | 'cloud' | 'ai'
 export const stack: Record<StackId, string[]> = {
   web3: ['Solidity', 'EVM', 'Uniswap V4', 'Safe', 'Zodiac Roles', 'viem', 'wagmi', 'The Graph', 'TON', 'TON Connect'],
@@ -148,6 +157,15 @@ const en = {
     visit: 'Open',
     code: 'Source',
     badges: { live: 'Live', studio: 'Neovate', oss: 'Open source', winner: 'Winner' },
+    caseStudy: 'Case study',
+    built: 'What we built',
+    findex: {
+      built: ['Smart contracts', 'Trading app', 'Admin dashboard', 'Indexing'],
+      chains: { one: 'chain', other: 'chains' } as Plural,
+      indexes: { one: 'index token', other: 'index tokens' } as Plural,
+      aum: 'assets under management',
+      source: 'Public figures from findex.io, {date}',
+    },
     items: {
       thyme: 'EVM RPC endpoints, hosted subgraphs and on-chain automation in one workspace. Flow runs TypeScript tasks on a cron, interval or webhook from your own Safe, through a Zodiac Roles allowlist with sponsored gas.',
       findex: 'Index-token protocol built on Uniswap V4 liquidity positions. Smart contracts, trading app, admin dashboard and indexing.',
@@ -299,6 +317,15 @@ const cs: Dict = {
     visit: 'Otevřít',
     code: 'Kód',
     badges: { live: 'V provozu', studio: 'Neovate', oss: 'Open source', winner: 'Vítěz' },
+    caseStudy: 'Případová studie',
+    built: 'Co jsme postavili',
+    findex: {
+      built: ['Smart kontrakty', 'Obchodní aplikace', 'Administrace', 'Indexace'],
+      chains: { one: 'síť', few: 'sítě', many: 'sítě', other: 'sítí' },
+      indexes: { one: 'indexový token', few: 'indexové tokeny', many: 'indexového tokenu', other: 'indexových tokenů' },
+      aum: 'spravovaných aktiv',
+      source: 'Veřejná čísla z findex.io, {date}',
+    },
     items: {
       thyme: 'EVM RPC endpointy, hostované subgraphy a on-chain automatizace v jednom workspace. Flow spouští úlohy v TypeScriptu podle cronu, intervalu nebo webhooku z vašeho vlastního Safe, přes allowlist Zodiac Roles a se sponzorovaným gasem.',
       findex: 'Protokol indexových tokenů postavený na likviditních pozicích Uniswap V4. Smart kontrakty, obchodní aplikace, administrace a indexace.',
@@ -448,6 +475,15 @@ const ru: Dict = {
     visit: 'Открыть',
     code: 'Код',
     badges: { live: 'Работает', studio: 'Neovate', oss: 'Open source', winner: 'Победитель' },
+    caseStudy: 'Кейс',
+    built: 'Что мы сделали',
+    findex: {
+      built: ['Смарт-контракты', 'Торговое приложение', 'Админка', 'Индексация'],
+      chains: { one: 'сеть', few: 'сети', many: 'сетей', other: 'сети' },
+      indexes: { one: 'индексный токен', few: 'индексных токена', many: 'индексных токенов', other: 'индексного токена' },
+      aum: 'активов под управлением',
+      source: 'Публичные данные с findex.io, {date}',
+    },
     items: {
       thyme: 'EVM RPC, хостинг сабграфов и on-chain автоматизация в одном рабочем пространстве. Flow запускает задачи на TypeScript по cron, интервалу или вебхуку из вашего собственного Safe — через allowlist Zodiac Roles и со спонсированным газом.',
       findex: 'Протокол индексных токенов на позициях ликвидности Uniswap V4. Смарт-контракты, торговое приложение, админка и индексация.',

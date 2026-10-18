@@ -3,7 +3,7 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './style.css'
 import { encode } from 'uqr'
-import { LANGS, awards, dicts, education, jobs, profile, projects, spoken, stack, type Dict, type Lang, type Plural, type StackId, type YM } from './content'
+import { LANGS, awards, cases, dicts, education, findexStats, jobs, profile, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type StackId, type YM } from './content'
 import gh from './github.json'
 
 // Lucide icons (ISC), inlined.
@@ -42,6 +42,7 @@ const serviceIcons: Record<keyof Dict['about']['services'], Icon> = {
 const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 const now = (): YM => { const d = new Date(); return [d.getFullYear(), d.getMonth() + 1] }
 const month = (t: Dict, [y, m]: YM) => `${t.months[m - 1]} ${y}`
+const plural = (lang: Lang, n: number, p: Plural) => p[new Intl.PluralRules(lang).select(n)] ?? p.other
 const period = (t: Dict, from: YM, to?: YM) => `${month(t, from)} — ${to ? month(t, to) : t.experience.present}`
 
 function duration(lang: Lang, from: YM, to: YM = now()) {
@@ -188,35 +189,83 @@ function experience(t: Dict, lang: Lang) {
 </section>`
 }
 
-const thymeExtra = `<pre class="code" aria-hidden="true"><span class="k">export default</span> <span class="f">defineTask</span>({
+const thymeCode = `<pre class="code" aria-hidden="true"><span class="k">export default</span> <span class="f">defineTask</span>({
   schema: z.<span class="f">object</span>({ vault: z.<span class="f">address</span>(), minRewards: z.coerce.<span class="f">bigint</span>() }),
   <span class="k">async</span> <span class="f">run</span>(ctx) {
     <span class="k">const</span> pending = <span class="k">await</span> ctx.client.<span class="f">readContract</span>(…)
     <span class="k">if</span> (pending &lt; ctx.args.minRewards) <span class="k">return</span> { canExec: <span class="s">false</span> }
     <span class="k">return</span> { canExec: <span class="s">true</span>, calls: [harvest] }
   },
-})</pre>
-<ul class="modules"><li><b>Gate</b><span>EVM RPC</span></li><li><b>Atlas</b><span>Subgraphs</span></li><li><b>Flow</b><span>Automation</span></li></ul>`
+})</pre>`
 
-function projectsSection(t: Dict) {
+type Project = (typeof projects)[number]
+const badge = (t: Dict, p: Project) =>
+  `<span class="badge badge-${p.badge}">${p.badge === 'winner' ? svg('trophy', 'icon-sm') : '<i></i>'}${t.projects.badges[p.badge]}</span>`
+const tags = (p: Project) => `<ul class="tags">${p.tags.map(s => `<li>${s}</li>`).join('')}</ul>`
+
+// What sits under each case study's description.
+const caseDetails: Partial<Record<ProjectId, (t: Dict, lang: Lang) => string>> = {
+  thyme: t => `
+      <p class="case-h">${t.projects.built}</p>
+      <ul class="modules"><li><b>Gate</b><span>EVM RPC</span></li><li><b>Atlas</b><span>Subgraphs</span></li><li><b>Flow</b><span>Automation</span></li></ul>`,
+  findex: (t, lang) => {
+    const f = t.projects.findex, s = findexStats
+    const aum = new Intl.NumberFormat(lang, { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol', notation: 'compact', maximumFractionDigits: 1 }).format(s.aum)
+    return `
+      <p class="case-h">${t.projects.built}</p>
+      <ul class="case-built">${f.built.map(b => `<li>${svg('check', 'icon-sm')}${b}</li>`).join('')}</ul>
+      <dl class="case-stats">
+        <div><dt>${plural(lang, s.chains, f.chains)}</dt><dd>${s.chains}</dd></div>
+        <div><dt>${plural(lang, s.indexes, f.indexes)}</dt><dd>${s.indexes}</dd></div>
+        <div><dt>${f.aum}</dt><dd>${aum}</dd></div>
+      </dl>
+      <p class="case-source">${f.source.replace('{date}', month(t, s.checked))}</p>`
+  },
+}
+
+function caseStudy(t: Dict, lang: Lang, { id, shot }: (typeof cases)[number], flip: boolean) {
+  const p = projects.find(x => x.id === id)!
+  const link = `href="${p.url}" target="_blank" rel="noopener"`
+  return `
+    <article class="card case reveal${flip ? ' is-flip' : ''}">
+      <div class="case-text">
+        <div class="project-top">${badge(t, p)}<span class="case-label">${t.projects.caseStudy}</span></div>
+        <h3><a ${link}>${p.name}</a></h3>
+        <p class="project-host">${host(p.url!)}</p>
+        <p class="case-desc">${t.projects.items[id]}</p>
+        ${caseDetails[id]?.(t, lang) ?? ''}
+        ${tags(p)}
+      </div>
+      <div class="case-visual">
+        <a class="case-shot" ${link} tabindex="-1" aria-hidden="true">
+          <span class="shot-bar"><span class="rc-dots"><i></i><i></i><i></i></span>${host(p.url!)}</span>
+          <img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async">
+        </a>
+        ${id === 'thyme' ? thymeCode : ''}
+      </div>
+    </article>`
+}
+
+function projectsSection(t: Dict, lang: Lang) {
+  const rest = projects.filter(p => !cases.some(c => c.id === p.id))
   return `
 <section class="section wrap" id="projects">
   ${head('03', t.projects.label, t.projects.title)}
+  <div class="cases">${cases.map((c, i) => caseStudy(t, lang, c, i % 2 === 1)).join('')}</div>
   <div class="projects">
-    ${projects.map(p => {
+    ${rest.map(p => {
       const tag = p.url ? 'a' : 'div'
       const attrs = p.url ? ` href="${p.url}" target="_blank" rel="noopener"` : ''
       return `
-    <${tag} class="card project reveal${p.id === 'thyme' ? ' is-featured' : ''}"${attrs}>
+    <${tag} class="card project reveal"${attrs}>
       <div class="project-top">
-        <span class="badge badge-${p.badge}">${p.badge === 'winner' ? svg('trophy', 'icon-sm') : '<i></i>'}${t.projects.badges[p.badge]}</span>
+        ${badge(t, p)}
         ${p.url ? `<span class="project-go">${svg('arrow')}</span>` : ''}
       </div>
       <h3>${p.name}</h3>
       ${p.url ? `<p class="project-host">${host(p.url)}</p>` : '<p class="project-host">Hack-a-TON × Prague · 2022</p>'}
       <p class="project-desc">${t.projects.items[p.id]}</p>
-      ${p.id === 'thyme' ? thymeExtra : ''}
-      <ul class="tags">${p.tags.map(s => `<li>${s}</li>`).join('')}</ul>
+      ${tags(p)}
     </${tag}>`
     }).join('')}
   </div>
@@ -246,7 +295,6 @@ const ghStats = (() => {
   return { longest, best, active: gh.counts.filter(Boolean).length }
 })()
 
-const plural = (lang: Lang, n: number, p: Plural) => p[new Intl.PluralRules(lang).select(n)] ?? p.other
 const utc = (lang: Lang, o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(lang, { timeZone: 'UTC', ...o })
 const contributions = (t: Dict, lang: Lang, n: number) => `${n.toLocaleString(lang)} ${plural(lang, n, t.activity.contributions)}`
 
@@ -386,7 +434,7 @@ function footer(t: Dict) {
 }
 
 const screen = (t: Dict, lang: Lang) =>
-  nav(t, lang) + `<main>${hero(t)}${marquee()}${about(t)}${experience(t, lang)}${projectsSection(t)}${activity(t, lang)}${stackSection(t)}${background(t)}${contact(t)}</main>` + footer(t)
+  nav(t, lang) + `<main>${hero(t)}${marquee()}${about(t)}${experience(t, lang)}${projectsSection(t, lang)}${activity(t, lang)}${stackSection(t)}${background(t)}${contact(t)}</main>` + footer(t)
 
 /* ---------- print ---------- */
 
