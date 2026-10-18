@@ -3,7 +3,7 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './style.css'
 import { encode } from 'uqr'
-import { LANGS, awards, cases, dicts, education, findexStats, jobs, profile, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type StackId, type YM } from './content'
+import { LANGS, awards, cases, dicts, education, findexStats, jobs, nowUpdated, profile, proof, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type Proof, type StackId, type YM } from './content'
 import gh from './github.json'
 
 // Lucide icons (ISC), inlined.
@@ -26,6 +26,9 @@ const icons = {
   bot: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
   trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
   cap: '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+  badge: '<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>',
+  shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+  package: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/>',
   languages: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
 }
 type Icon = keyof typeof icons
@@ -143,12 +146,26 @@ const head = (n: string, label: string, title: string) => `
   <h2 class="sec-title">${title}</h2>
 </div>`
 
+function nowCard(t: Dict) {
+  const thyme = projects.find(p => p.id === 'thyme')!
+  const neovate = jobs.find(j => j.id === 'neovate')!
+  const fill = (s: string) => s
+    .replace('{thyme}', `<a href="${thyme.url}" target="_blank" rel="noopener">${thyme.name}</a>`)
+    .replace('{neovate}', `<a href="${neovate.url}" target="_blank" rel="noopener">Neovate</a>`)
+  return `
+  <div class="card now reveal">
+    <p class="now-label"><span class="pulse"></span>${t.now.label}<span>${month(t, nowUpdated)}</span></p>
+    <dl class="now-list">${[t.now.building, t.now.running, t.now.open].map(([k, v]) => `<div><dt>${k}</dt><dd>${fill(v)}</dd></div>`).join('')}</dl>
+  </div>`
+}
+
 function about(t: Dict) {
   const services = Object.entries(t.about.services) as [keyof Dict['about']['services'], string[]][]
   return `
 <section class="section wrap" id="about">
   ${head('01', t.about.label, t.about.title)}
   <div class="about-text reveal">${t.about.body.map(p => `<p>${p}</p>`).join('')}</div>
+  ${nowCard(t)}
   <div class="services">
     ${services.map(([id, [title, body]]) => `
     <article class="card service reveal">
@@ -223,6 +240,18 @@ const caseDetails: Partial<Record<ProjectId, (t: Dict, lang: Lang) => string>> =
   },
 }
 
+const proofIcons: Record<Proof['kind'], Icon> = { contract: 'badge', audit: 'shield', repo: 'github', npm: 'package' }
+
+function proofLinks(t: Dict, id: ProjectId) {
+  const items = proof[id]
+  if (!items) return ''
+  return `
+      <p class="case-h">${t.projects.proof}</p>
+      <ul class="proof">${items.map(x => `
+        <li><a href="${x.url}" target="_blank" rel="noopener"${x.address ? ` title="${x.address}"` : ''}>${svg(proofIcons[x.kind], 'icon-sm')}${x.kind === 'audit' ? `${t.projects.audit} · ` : ''}${x.label}${x.address ? `<span>${x.address.slice(0, 6)}…${x.address.slice(-4)}</span>` : ''}${svg('arrow', 'icon-sm')}</a></li>`).join('')}
+      </ul>`
+}
+
 function caseStudy(t: Dict, lang: Lang, { id, shot }: (typeof cases)[number], flip: boolean) {
   const p = projects.find(x => x.id === id)!
   const link = `href="${p.url}" target="_blank" rel="noopener"`
@@ -234,6 +263,7 @@ function caseStudy(t: Dict, lang: Lang, { id, shot }: (typeof cases)[number], fl
         <p class="project-host">${host(p.url!)}</p>
         <p class="case-desc">${t.projects.items[id]}</p>
         ${caseDetails[id]?.(t, lang) ?? ''}
+        ${proofLinks(t, id)}
         ${tags(p)}
       </div>
       <div class="case-visual">

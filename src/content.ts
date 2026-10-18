@@ -43,6 +43,24 @@ export const cases: { id: ProjectId; shot: string }[] = [
   { id: 'findex', shot: '/shots/findex.webp' },
 ]
 
+// Links anyone can check: verified contracts, audits, public code.
+export type Proof = { kind: 'contract' | 'audit' | 'repo' | 'npm'; label: string; url: string; address?: string }
+export const proof: Partial<Record<ProjectId, Proof[]>> = {
+  thyme: [
+    { kind: 'repo', label: 'thyme-labs/sdk', url: 'https://github.com/thyme-labs/sdk' },
+    { kind: 'npm', label: '@thyme-labs/sdk', url: 'https://www.npmjs.com/package/@thyme-labs/sdk' },
+    { kind: 'npm', label: '@thyme-labs/cli', url: 'https://www.npmjs.com/package/@thyme-labs/cli' },
+  ],
+  findex: [
+    { kind: 'contract', label: 'Factory · Optimism', address: '0x4b5a85495Cf984b11575c94FBa82f082A73B6AC2', url: 'https://optimism.blockscout.com/address/0x4b5a85495Cf984b11575c94FBa82f082A73B6AC2?tab=contract' },
+    { kind: 'contract', label: 'IndexHook · Optimism', address: '0x4e4ecde86fc904b6e7be363e0f4bf127fd7195d8', url: 'https://optimism.blockscout.com/address/0x4e4ecde86fc904b6e7be363e0f4bf127fd7195d8?tab=contract' },
+    { kind: 'audit', label: 'Ackee Blockchain', url: 'https://docs.findex.io/#/technical/findex-final-audit-report' },
+  ],
+}
+
+// When the "Now" card in About was last true. Update with its text.
+export const nowUpdated: YM = [2026, 10]
+
 // Public figures from the findex.io homepage.
 export const findexStats = { checked: [2026, 10] as YM, chains: 3, indexes: 19, aum: 2_500_000 }
 
@@ -110,6 +128,12 @@ const en = {
       telegram: ['Telegram bots & Mini Apps', 'Bots since 2016 and Mini Apps with TON Connect — including a hackathon-winning game.'],
     },
   },
+  now: {
+    label: 'Now',
+    building: ['Building', 'Flow at {thyme}, where AI agents write and run on-chain functions'],
+    running: ['Running', '{neovate}, a software studio in Prague'],
+    open: ['Open to', 'New projects'],
+  },
   experience: {
     label: 'Experience',
     title: 'Where I’ve worked',
@@ -157,6 +181,8 @@ const en = {
     visit: 'Open',
     code: 'Source',
     badges: { live: 'Live', studio: 'Neovate', oss: 'Open source', winner: 'Winner' },
+    proof: 'Check it yourself',
+    audit: 'Audit',
     caseStudy: 'Case study',
     built: 'What we built',
     findex: {
@@ -270,6 +296,12 @@ const cs: Dict = {
       telegram: ['Telegram boti a Mini Apps', 'Boty píšu od roku 2016, Mini Apps s TON Connect — včetně hry, která vyhrála hackathon.'],
     },
   },
+  now: {
+    label: 'Teď',
+    building: ['Stavím', 'Flow v {thyme}, kde AI agenti píšou a spouštějí on-chain funkce'],
+    running: ['Vedu', '{neovate}, softwarové studio v Praze'],
+    open: ['Beru', 'Nové projekty'],
+  },
   experience: {
     label: 'Zkušenosti',
     title: 'Kde jsem pracoval',
@@ -317,6 +349,8 @@ const cs: Dict = {
     visit: 'Otevřít',
     code: 'Kód',
     badges: { live: 'V provozu', studio: 'Neovate', oss: 'Open source', winner: 'Vítěz' },
+    proof: 'Ověřte si sami',
+    audit: 'Audit',
     caseStudy: 'Případová studie',
     built: 'Co jsme postavili',
     findex: {
@@ -428,6 +462,12 @@ const ru: Dict = {
       telegram: ['Telegram-боты и Mini Apps', 'Боты с 2016 года и Mini Apps с TON Connect — включая игру, победившую на хакатоне.'],
     },
   },
+  now: {
+    label: 'Сейчас',
+    building: ['Строю', 'Flow в {thyme}, где AI-агенты пишут и запускают on-chain функции'],
+    running: ['Руковожу', '{neovate} — софтверной студией в Праге'],
+    open: ['Беру', 'Новые проекты'],
+  },
   experience: {
     label: 'Опыт',
     title: 'Где я работал',
@@ -475,6 +515,8 @@ const ru: Dict = {
     visit: 'Открыть',
     code: 'Код',
     badges: { live: 'Работает', studio: 'Neovate', oss: 'Open source', winner: 'Победитель' },
+    proof: 'Проверьте сами',
+    audit: 'Аудит',
     caseStudy: 'Кейс',
     built: 'Что мы сделали',
     findex: {
