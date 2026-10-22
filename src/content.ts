@@ -30,13 +30,13 @@ export const jobs: { id: JobId; org?: string; url?: string; from: YM | number; t
 export type ProjectId = 'thyme' | 'findex' | 'bckit' | 'qanda' | 'unbox' | 'm3you' | 'ddog'
 export type Badge = 'live' | 'studio' | 'oss' | 'winner'
 // printed: false keeps a project off the one-page print CV.
-export const projects: { id: ProjectId; name: string; url?: string; badge: Badge; tags: string[]; printed?: boolean }[] = [
+export const projects: { id: ProjectId; name: string; url?: string; sourceUrl?: string; badge: Badge; tags: string[]; printed?: boolean }[] = [
   { id: 'thyme', name: 'thyme/labs', url: 'https://thymelabs.io', badge: 'live', tags: ['Safe', 'Zodiac Roles', 'viem', 'Deno', 'Subgraphs'] },
   { id: 'findex', name: 'Findex', url: 'https://findex.io', badge: 'studio', tags: ['Solidity', 'Uniswap V4', 'wagmi', 'Indexing'] },
   { id: 'bckit', name: 'BCkit', url: 'https://bckit.cc', badge: 'studio', tags: ['EVM', 'Calldata', 'Simulation'] },
   { id: 'qanda', name: 'QandA.fun', url: 'https://qanda.fun', badge: 'studio', tags: ['Realtime', 'TypeScript', 'Mobile'] },
   { id: 'unbox', name: 'Unbox Quest', url: 'https://unbox.quest', badge: 'studio', tags: ['React', 'Vite', 'PWA', 'Puzzle'], printed: false },
-  { id: 'm3you', name: 'm3you', url: 'https://github.com/bczak/m3you', badge: 'oss', tags: ['React', 'CSS', 'Design system'] },
+  { id: 'm3you', name: 'm3you', url: 'https://material.you', sourceUrl: 'https://github.com/bczak/m3you', badge: 'oss', tags: ['React', 'CSS', 'Design system'] },
   { id: 'ddog', name: 'dDog', badge: 'winner', tags: ['TON', 'NFT', 'Telegram Web App'] },
 ]
 
@@ -84,7 +84,10 @@ export const education: { id: 'ctu' | 'kspa'; from: number; to: number; url?: st
   { id: 'kspa', from: 2016, to: 2018 },
 ]
 
-export const awards: { id: 'hackaton'; year: number }[] = [{ id: 'hackaton', year: 2022 }]
+export const awards: { id: 'collaby' | 'hackaton'; year: number; url: string }[] = [
+  { id: 'collaby', year: 2023, url: 'https://www.blog.encode.club/bnb-chain-zero2hero-hackathon-powered-by-encode-prizewinners-and-summary-ece409fa38d0' },
+  { id: 'hackaton', year: 2022, url: 'https://www.linkedin.com/posts/arina-momot-718a311b8_last-weekend-our-team-nftonspace-consisting-activity-6986029004973621249-tcPK' },
+]
 
 // CEFR level, or 'native' (translated).
 export const spoken: [Lang, string][] = [
@@ -239,7 +242,8 @@ const en = {
   },
   awards: {
     title: 'Awards',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Winner of the Best TWA (Telegram Web App) category with team dDog' },
+    collaby: { name: 'BNB Chain Zero2Hero Hackathon', detail: '2nd place in the SocialFi category with CollabY, a dApp connecting brands and influencers · $6,000 team prize', source: 'Official results' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Winner of the Best TWA (Telegram Web App) category with team NFTON.space', source: 'Team announcement' },
   },
   languages: {
     title: 'Languages',
@@ -414,7 +418,8 @@ const cs: Dict = {
   },
   awards: {
     title: 'Ocenění',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Vítěz kategorie Best TWA (Telegram Web App) s týmem dDog' },
+    collaby: { name: 'BNB Chain Zero2Hero Hackathon', detail: '2. místo v kategorii SocialFi s CollabY, dApp propojující značky a influencery · týmová odměna 6 000 USD', source: 'Oficiální výsledky' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Vítěz kategorie Best TWA (Telegram Web App) s týmem NFTON.space', source: 'Příspěvek týmu' },
   },
   languages: {
     title: 'Jazyky',
@@ -587,7 +592,8 @@ const ru: Dict = {
   },
   awards: {
     title: 'Награды',
-    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Победа в номинации Best TWA (Telegram Web App) в команде dDog' },
+    collaby: { name: 'BNB Chain Zero2Hero Hackathon', detail: '2-е место в категории SocialFi с CollabY — dApp для сотрудничества брендов и инфлюенсеров · приз команде 6 000 USD', source: 'Официальные результаты' },
+    hackaton: { name: 'Hack-a-TON × Prague', detail: 'Победа в номинации Best TWA (Telegram Web App) в команде NFTON.space', source: 'Публикация команды' },
   },
   languages: {
     title: 'Языки',

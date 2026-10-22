@@ -285,18 +285,19 @@ function projectsSection(t: Dict, lang: Lang) {
   <div class="cases">${cases.map((c, i) => caseStudy(t, lang, c, i % 2 === 1)).join('')}</div>
   <div class="projects">
     ${rest.map(p => {
-      const tag = p.url ? 'a' : 'div'
-      const attrs = p.url ? ` href="${p.url}" target="_blank" rel="noopener"` : ''
+      const tag = p.url && !p.sourceUrl ? 'a' : 'div'
+      const attrs = tag === 'a' ? ` href="${p.url}" target="_blank" rel="noopener"` : ''
       return `
     <${tag} class="card project reveal"${attrs}>
       <div class="project-top">
         ${badge(t, p)}
         ${p.url ? `<span class="project-go">${svg('arrow')}</span>` : ''}
       </div>
-      <h3>${p.name}</h3>
+      <h3>${p.sourceUrl ? `<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a>` : p.name}</h3>
       ${p.url ? `<p class="project-host">${host(p.url)}</p>` : '<p class="project-host">Hack-a-TON × Prague · 2022</p>'}
       <p class="project-desc">${t.projects.items[p.id]}</p>
       ${tags(p)}
+      ${p.sourceUrl ? `<p><a href="${p.url}" target="_blank" rel="noopener">${t.projects.visit}${svg('arrow', 'icon-sm')}</a> · <a href="${p.sourceUrl}" target="_blank" rel="noopener">${t.projects.code}${svg('github', 'icon-sm')}</a></p>` : ''}
     </${tag}>`
     }).join('')}
   </div>
@@ -419,7 +420,7 @@ function background(t: Dict) {
       <div class="info-item">
         <p class="info-title">${t.awards[a.id].name}</p>
         <p class="info-detail">${t.awards[a.id].detail}</p>
-        <p class="info-when">${a.year}</p>
+        <p class="info-when">${a.year} · <a href="${a.url}" target="_blank" rel="noopener">${t.awards[a.id].source}${svg('arrow', 'icon-sm')}</a></p>
       </div>`).join('')}
     </article>
     <article class="card info reveal">
@@ -546,7 +547,7 @@ function printCv(t: Dict, lang: Lang) {
       <h2 class="pcv-h">${t.awards.title}</h2>
       ${awards.map(a => `
       <div class="pcv-item">
-        <h3>${t.awards[a.id].name}</h3>
+        <h3><a href="${a.url}">${t.awards[a.id].name}</a></h3>
         <p>${t.awards[a.id].detail}</p>
         <p class="pcv-when">${a.year}</p>
       </div>`).join('')}
