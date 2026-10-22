@@ -18,9 +18,10 @@ export const profile = {
   telegram: 'https://t.me/tashpik',
 }
 
-export type JobId = 'neovate' | 'kindred' | 'kb' | 'freelance'
-export const jobs: { id: JobId; org?: string; url?: string; from: YM; to?: YM; prague?: boolean }[] = [
+export type JobId = 'neovate' | 'confidential' | 'kindred' | 'kb' | 'freelance'
+export const jobs: { id: JobId; org?: string; url?: string; from: YM | number; to?: YM | number; prague?: boolean }[] = [
   { id: 'neovate', org: 'Neovate s.r.o.', url: 'https://neovate.dev', from: [2025, 3], prague: true },
+  { id: 'confidential', from: 2023, to: 2025 },
   { id: 'kindred', org: 'KINDRED', from: [2023, 4], to: [2023, 6], prague: true },
   { id: 'kb', org: 'Komerční banka', url: 'https://www.kb.cz', from: [2020, 2], to: [2023, 5], prague: true },
   { id: 'freelance', from: [2016, 9], to: [2026, 3] },
@@ -150,6 +151,12 @@ const en = {
           'Shipped BCkit, a free web3 debugging toolkit, and QandA.fun, a live multiplayer quiz platform.',
           'Lead a team of frontend, backend and smart-contract engineers with in-house QA and design.',
         ],
+      },
+      confidential: {
+        role: 'Financial product development',
+        org: 'Confidential company (NDA)',
+        summary: 'Worked on a finance-related product. Company and project details remain confidential under an NDA for 10 years after contract termination.',
+        points: [],
       },
       kindred: {
         role: 'Full-stack developer',
@@ -320,6 +327,12 @@ const cs: Dict = {
           'Vedu tým frontendových, backendových a smart-kontraktových vývojářů s vlastním QA a designem.',
         ],
       },
+      confidential: {
+        role: 'Vývoj finančního produktu',
+        org: 'Nezveřejněná společnost (NDA)',
+        summary: 'Práce na produktu z oblasti financí. Informace o společnosti a projektu zůstávají důvěrné na základě NDA po dobu 10 let od ukončení smlouvy.',
+        points: [],
+      },
       kindred: {
         role: 'Full-stack vývojář',
         summary: 'Full-stack vývoj nových funkcí v pražském produktovém týmu.',
@@ -486,6 +499,12 @@ const ru: Dict = {
           'Запустили BCkit — бесплатный набор инструментов для отладки web3 — и QandA.fun, платформу живых мультиплеерных квизов.',
           'Руковожу командой фронтенд-, бэкенд- и смарт-контракт-разработчиков со своими QA и дизайном.',
         ],
+      },
+      confidential: {
+        role: 'Разработка финансового продукта',
+        org: 'Конфиденциальная компания (NDA)',
+        summary: 'Работал над продуктом в сфере финансов. Информация о компании и проекте остаётся конфиденциальной по NDA в течение 10 лет после прекращения договора.',
+        points: [],
       },
       kindred: {
         role: 'Full-stack-разработчик',

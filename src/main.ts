@@ -46,7 +46,8 @@ const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\
 const now = (): YM => { const d = new Date(); return [d.getFullYear(), d.getMonth() + 1] }
 const month = (t: Dict, [y, m]: YM) => `${t.months[m - 1]} ${y}`
 const plural = (lang: Lang, n: number, p: Plural) => p[new Intl.PluralRules(lang).select(n)] ?? p.other
-const period = (t: Dict, from: YM, to?: YM) => `${month(t, from)} — ${to ? month(t, to) : t.experience.present}`
+const jobDate = (t: Dict, date: YM | number) => typeof date === 'number' ? String(date) : month(t, date)
+const period = (t: Dict, from: YM | number, to?: YM | number) => `${jobDate(t, from)} — ${to !== undefined ? jobDate(t, to) : t.experience.present}`
 
 function duration(lang: Lang, from: YM, to: YM = now()) {
   const total = (to[0] - from[0]) * 12 + (to[1] - from[1]) + 1
@@ -189,7 +190,7 @@ function experience(t: Dict, lang: Lang) {
     <li class="job reveal${job.to ? '' : ' is-current'}">
       <div class="job-when">
         <span>${period(t, job.from, job.to)}</span>
-        <span class="job-dur">${duration(lang, job.from, job.to)}</span>
+        ${typeof job.from !== 'number' && typeof job.to !== 'number' ? `<span class="job-dur">${duration(lang, job.from, job.to)}</span>` : ''}
       </div>
       <div class="job-dot" aria-hidden="true"></div>
       <article class="card job-card">
