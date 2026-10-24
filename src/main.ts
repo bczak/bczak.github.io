@@ -485,6 +485,7 @@ function printCv(t: Dict, lang: Lang) {
       ${c('send', profile.telegram, host(profile.telegram))}
       ${c('linkedin', profile.linkedin, host(profile.linkedin))}
       ${c('github', profile.github, host(profile.github))}
+      <li>${svg('languages')}<span>${spoken.map(([l, level]) => `${t.languages.names[l]} <i>${levelName(t, level)}</i>`).join(' · ')}</span></li>
     </ul>
   </div>
   <a class="pcv-qr" href="${langUrl(lang)}">${qr(langUrl(lang))}<span>${t.print.live}</span></a>
@@ -531,12 +532,12 @@ function printCv(t: Dict, lang: Lang) {
       ${(Object.entries(stack) as [StackId, string[]][]).map(([id, items]) => `
       <div class="pcv-skill">
         <h3>${t.stack.groups[id]}</h3>
-        <p>${items.map(s => `<span>${s}</span>`).join('')}</p>
+        <p>${items.map(s => `<span>${s}</span>`).join(' ')}</p>
       </div>`).join('')}
     </section>
     <section>
       <h2 class="pcv-h">${t.education.title}</h2>
-      ${education.map(e => `
+      ${education.filter(e => e.printed !== false).map(e => `
       <div class="pcv-item">
         <h3>${t.education[e.id].school}</h3>
         <p>${t.education[e.id].detail}</p>
@@ -551,12 +552,6 @@ function printCv(t: Dict, lang: Lang) {
         <p>${t.awards[a.id].detail}</p>
         <p class="pcv-when">${a.year}</p>
       </div>`).join('')}
-    </section>
-    <section>
-      <h2 class="pcv-h">${t.languages.title}</h2>
-      <ul class="pcv-langs">
-        ${spoken.map(([l, level]) => `<li><span>${t.languages.names[l]}</span><span>${levelName(t, level)}</span></li>`).join('')}
-      </ul>
     </section>
   </aside>
 </div>`

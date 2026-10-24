@@ -67,21 +67,23 @@ export const nowUpdated: YM = [2026, 10]
 // Public figures from the findex.io homepage.
 export const findexStats = { checked: [2026, 10] as YM, chains: 3, indexes: 19, aum: 2_500_000 }
 
-export type StackId = 'web3' | 'frontend' | 'backend' | 'data' | 'cloud' | 'ai'
+// Strongest first. Every entry is backed by shipped work or commits in the repos behind the projects above.
+export type StackId = 'web3' | 'frontend' | 'backend' | 'cloud' | 'quality' | 'ai'
 export const stack: Record<StackId, string[]> = {
-  web3: ['Solidity', 'EVM', 'Uniswap V4', 'Safe', 'Zodiac Roles', 'viem', 'wagmi', 'The Graph', 'TON', 'TON Connect'],
-  frontend: ['TypeScript', 'React', 'TanStack', 'Vue', 'Vite', 'Tailwind CSS', 'Bootstrap', 'Design systems', 'Telegram Mini Apps'],
-  backend: ['Java', 'Spring Boot', 'Maven', 'Node.js', 'Bun', 'Deno', 'Python', 'Flask', 'REST', 'Telegraf'],
-  data: ['SQL', 'PostgreSQL', 'MySQL', 'Teradata', 'DynamoDB'],
-  cloud: ['Kubernetes', 'Jenkins', 'AWS Lambda', 'API Gateway', 'S3', 'CloudFront', 'Serverless', 'GitHub Actions'],
-  ai: ['LLM APIs', 'Agents', 'RAG', 'On-chain automation'],
+  web3: ['Solidity', 'EVM', 'viem', 'wagmi', 'Uniswap V4 SDKs', 'Safe', 'Zodiac Roles', 'ERC-4337', 'WalletConnect', 'The Graph', 'EVM nodes', 'TON', 'TON Connect'],
+  frontend: ['TypeScript', 'React', 'TanStack Router', 'TanStack Query', 'TanStack Start', 'Next.js', 'Vite', 'Rsbuild', 'Module Federation', 'Tailwind CSS', 'shadcn/ui', 'Zustand', 'Zod', 'Design systems', 'Three.js', 'Vue', 'Telegram Mini Apps'],
+  backend: ['Node.js', 'Bun', 'Deno', 'Express', 'Hono', 'Convex', 'REST & OpenAPI', 'GraphQL', 'PostgreSQL', 'MySQL', 'Teradata', 'Prisma', 'Drizzle', 'Firebase', 'Stripe', 'Java', 'Spring Boot', 'Python'],
+  cloud: ['Docker', 'Kubernetes', 'GitHub Actions', 'Jenkins', 'AWS Lambda', 'API Gateway', 'S3', 'CloudFront', 'Serverless', 'Traefik', 'APISIX', 'Prometheus', 'Grafana', 'Sentry', 'Linux'],
+  quality: ['Vitest', 'Playwright', 'Testing Library', 'Storybook', 'Jest', 'Biome', 'ESLint', 'Turborepo', 'semantic-release'],
+  ai: ['LLM APIs', 'AI agents', 'Claude Code', 'Codex', 'AI code review in CI', 'Sandboxed code execution', 'RAG', 'Genkit', 'On-chain automation'],
 }
 
 type JobText = { role: string; org?: string; summary: string; points: string[] }
 
-export const education: { id: 'ctu' | 'kspa'; from: number; to: number; url?: string }[] = [
+// printed: false keeps an entry off the one-page print CV.
+export const education: { id: 'ctu' | 'kspa'; from: number; to: number; url?: string; printed?: boolean }[] = [
   { id: 'ctu', from: 2018, to: 2021, url: 'https://fel.cvut.cz' },
-  { id: 'kspa', from: 2016, to: 2018 },
+  { id: 'kspa', from: 2016, to: 2018, printed: false },
 ]
 
 export const awards: { id: 'collaby' | 'hackaton'; year: number; url: string }[] = [
@@ -99,11 +101,11 @@ export const spoken: [Lang, string][] = [
 const en = {
   langName: 'English',
   name: 'Jakhongir Tashpulatov',
-  role: 'Full-stack Web3 developer',
+  role: 'Full-stack developer',
   prague: 'Prague, Czechia',
   meta: {
-    title: 'Jakhongir Tashpulatov — Full-stack Web3 developer',
-    description: 'Full-stack Web3 developer in Prague. Smart contracts, backends, indexers and interfaces — the whole stack, shipped.',
+    title: 'Jakhongir Tashpulatov — Full-stack developer',
+    description: 'Full-stack developer in Prague. Smart contracts, backends, indexers and interfaces — the whole stack, shipped.',
   },
   nav: { about: 'About', experience: 'Experience', projects: 'Projects', stack: 'Stack', contact: 'Contact', print: 'Print CV', language: 'Language' },
   hero: {
@@ -149,7 +151,7 @@ const en = {
         role: 'CEO',
         summary: 'Running a Prague software studio that designs, builds and tests products — from smart contracts to landing pages — for web3, fintech and AI clients.',
         points: [
-          'Built Findex, an index-token protocol on Uniswap V4 liquidity positions: contracts, trading app, admin dashboard and indexing.',
+          'Built Findex’s subgraphs, trading app and back office myself — an index-token protocol on Uniswap V4 liquidity positions.',
           'Building thyme/labs: EVM RPC (Gate), hosted subgraphs (Atlas) and Flow — TypeScript automation that runs from the user’s own Safe.',
           'Shipped BCkit, a free web3 debugging toolkit, and QandA.fun, a live multiplayer quiz platform.',
           'Lead a team of frontend, backend and smart-contract engineers with in-house QA and design.',
@@ -163,7 +165,7 @@ const en = {
       },
       kindred: {
         role: 'Full-stack developer',
-        summary: 'Full-stack feature work for a Prague product team.',
+        summary: 'Built presentation websites for international companies.',
         points: [],
       },
       kb: {
@@ -232,7 +234,7 @@ const en = {
   stack: {
     label: 'Stack',
     title: 'Tools I reach for',
-    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend', data: 'Data', cloud: 'Cloud & DevOps', ai: 'AI & automation' },
+    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend & data', cloud: 'Cloud & DevOps', quality: 'Testing & tooling', ai: 'AI & automation' },
   },
   background: { label: 'Background', title: 'Education & more' },
   education: {
@@ -275,11 +277,11 @@ export type Dict = typeof en
 const cs: Dict = {
   langName: 'Čeština',
   name: 'Jakhongir Tashpulatov',
-  role: 'Full-stack Web3 vývojář',
+  role: 'Full-stack vývojář',
   prague: 'Praha, Česko',
   meta: {
-    title: 'Jakhongir Tashpulatov — Full-stack Web3 vývojář',
-    description: 'Full-stack Web3 vývojář v Praze. Smart kontrakty, backendy, indexery i rozhraní — celý stack od návrhu po provoz.',
+    title: 'Jakhongir Tashpulatov — Full-stack vývojář',
+    description: 'Full-stack vývojář v Praze. Smart kontrakty, backendy, indexery i rozhraní — celý stack od návrhu po provoz.',
   },
   nav: { about: 'O mně', experience: 'Zkušenosti', projects: 'Projekty', stack: 'Technologie', contact: 'Kontakt', print: 'Tisk CV', language: 'Jazyk' },
   hero: {
@@ -325,7 +327,7 @@ const cs: Dict = {
         role: 'CEO',
         summary: 'Vedu pražské softwarové studio, které navrhuje, vyvíjí a testuje produkty — od smart kontraktů po landing pages — pro klienty z web3, fintechu a AI.',
         points: [
-          'Postavili jsme Findex, protokol indexových tokenů nad likviditními pozicemi Uniswap V4: kontrakty, obchodní aplikaci, administraci a indexaci.',
+          'Sám jsem postavil subgraphy, obchodní aplikaci a back office Findexu — protokolu indexových tokenů nad likviditními pozicemi Uniswap V4.',
           'Stavíme thyme/labs: EVM RPC (Gate), hostované subgraphy (Atlas) a Flow — automatizaci v TypeScriptu, která běží z vlastního Safe uživatele.',
           'Vydali jsme BCkit, bezplatnou sadu nástrojů pro ladění web3, a QandA.fun, platformu pro živé kvízy pro více hráčů.',
           'Vedu tým frontendových, backendových a smart-kontraktových vývojářů s vlastním QA a designem.',
@@ -339,7 +341,7 @@ const cs: Dict = {
       },
       kindred: {
         role: 'Full-stack vývojář',
-        summary: 'Full-stack vývoj nových funkcí v pražském produktovém týmu.',
+        summary: 'Vytvářel jsem prezentační weby pro mezinárodní společnosti.',
         points: [],
       },
       kb: {
@@ -408,7 +410,7 @@ const cs: Dict = {
   stack: {
     label: 'Technologie',
     title: 'Nástroje, po kterých sahám',
-    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend', data: 'Data', cloud: 'Cloud a DevOps', ai: 'AI a automatizace' },
+    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend a data', cloud: 'Cloud a DevOps', quality: 'Testování a nástroje', ai: 'AI a automatizace' },
   },
   background: { label: 'Vzdělání', title: 'Vzdělání a další' },
   education: {
@@ -449,11 +451,11 @@ const cs: Dict = {
 const ru: Dict = {
   langName: 'Русский',
   name: 'Джахонгир Ташпулатов',
-  role: 'Full-stack Web3-разработчик',
+  role: 'Full-stack-разработчик',
   prague: 'Прага, Чехия',
   meta: {
-    title: 'Джахонгир Ташпулатов — Full-stack Web3-разработчик',
-    description: 'Full-stack Web3-разработчик в Праге. Смарт-контракты, бэкенды, индексеры и интерфейсы — весь стек под ключ.',
+    title: 'Джахонгир Ташпулатов — Full-stack-разработчик',
+    description: 'Full-stack-разработчик в Праге. Смарт-контракты, бэкенды, индексеры и интерфейсы — весь стек под ключ.',
   },
   nav: { about: 'Обо мне', experience: 'Опыт', projects: 'Проекты', stack: 'Стек', contact: 'Контакты', print: 'Печать CV', language: 'Язык' },
   hero: {
@@ -499,7 +501,7 @@ const ru: Dict = {
         role: 'CEO',
         summary: 'Руковожу пражской студией, которая проектирует, разрабатывает и тестирует продукты — от смарт-контрактов до лендингов — для клиентов из web3, финтеха и AI.',
         points: [
-          'Сделали Findex — протокол индексных токенов на позициях ликвидности Uniswap V4: контракты, торговое приложение, админку и индексацию.',
+          'Сам сделал сабграфы, торговое приложение и бэк-офис Findex — протокола индексных токенов на позициях ликвидности Uniswap V4.',
           'Строим thyme/labs: EVM RPC (Gate), хостинг сабграфов (Atlas) и Flow — автоматизацию на TypeScript, которая работает из собственного Safe пользователя.',
           'Запустили BCkit — бесплатный набор инструментов для отладки web3 — и QandA.fun, платформу живых мультиплеерных квизов.',
           'Руковожу командой фронтенд-, бэкенд- и смарт-контракт-разработчиков со своими QA и дизайном.',
@@ -513,7 +515,7 @@ const ru: Dict = {
       },
       kindred: {
         role: 'Full-stack-разработчик',
-        summary: 'Full-stack-разработка продуктовых фич в пражской команде.',
+        summary: 'Делал презентационные сайты для международных компаний.',
         points: [],
       },
       kb: {
@@ -582,7 +584,7 @@ const ru: Dict = {
   stack: {
     label: 'Стек',
     title: 'Чем я пользуюсь',
-    groups: { web3: 'Web3', frontend: 'Фронтенд', backend: 'Бэкенд', data: 'Данные', cloud: 'Облако и DevOps', ai: 'AI и автоматизация' },
+    groups: { web3: 'Web3', frontend: 'Фронтенд', backend: 'Бэкенд и данные', cloud: 'Облако и DevOps', quality: 'Тестирование и инструменты', ai: 'AI и автоматизация' },
   },
   background: { label: 'Образование', title: 'Образование и не только' },
   education: {

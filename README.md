@@ -1,6 +1,6 @@
 # bczak.github.io — CV
 
-Jakhongir Tashpulatov, full-stack Web3 developer. Live at https://bczak.github.io/ in English, Czech and Russian.
+Jakhongir Tashpulatov, full-stack developer. Live at https://bczak.github.io/ in English, Czech and Russian.
 
 - `npm run dev` — run locally
 - `npm run build` — build into `dist/`
