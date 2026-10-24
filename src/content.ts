@@ -128,7 +128,7 @@ const en = {
     label: 'About',
     title: 'Contracts, servers, pixels. One developer, the whole stack.',
     body: [
-      'I’m Jakhongir, a full-stack developer in Prague, and I’ve been coding for ten years straight. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first in data science, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
+      'I’m Jakhongir, a full-stack developer in Prague, and I’ve been coding for ten years straight. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first as a data engineer, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
       'Today I’m Lead CTO at Neovate, a small studio that takes products from a sketch to production, and I write code myself. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
     ],
     ai: {
@@ -178,10 +178,10 @@ const en = {
         points: [],
       },
       kb: {
-        role: 'Data scientist → Full-stack developer',
-        summary: 'Three years at one of the largest banks in Czechia, part of Société Générale group: a year in data science, then two years of mostly full-stack development.',
+        role: 'Data engineer → Full-stack developer',
+        summary: 'Three years at one of the largest banks in Czechia, part of Société Générale group: a year in data engineering, then two years of mostly full-stack development.',
         points: [
-          'Data scientist: worked with the bank’s data in SQL across Teradata, PostgreSQL and MySQL.',
+          'Data engineer: worked with the bank’s data in SQL across Teradata, PostgreSQL and MySQL.',
           'Full-stack developer: Java and Spring Boot services built with Maven; React frontends with TanStack, Tailwind and Bootstrap.',
           'Shipped through Jenkins pipelines to Kubernetes.',
         ],
@@ -309,8 +309,8 @@ const cs: Dict = {
     label: 'O mně',
     title: 'Kontrakty, servery, pixely. Jeden vývojář, celý stack.',
     body: [
-      'Jsem Jakhongir, full-stack vývojář v Praze, a už deset let nepřetržitě programuji. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív v data science, pak jako full-stack vývojář v Javě — a pak jsem se naplno ponořil do web3: TON, EVM, Safe a Uniswap V4.',
-      'Dnes jsem Lead CTO v Neovate, malém studiu, které dotáhne produkt od skici až do produkce — a sám programuji. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
+      'Jsem Jakhongir, full-stack vývojář v Praze, a už deset let nepřetržitě programuji. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív jako data engineer, pak jako full-stack vývojář v Javě — a pak jsem se ponořil do web3: TON, EVM, Safe a Uniswap V4.',
+      'Dnes jsem Lead CTO v Neovate, malém studiu, které dotáhne produkt od skici do produkce — a sám programuji. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
     ],
     ai: {
       title: 'Vývoj s AI agenty',
@@ -359,10 +359,10 @@ const cs: Dict = {
         points: [],
       },
       kb: {
-        role: 'Data scientist → full-stack vývojář',
-        summary: 'Tři roky v jedné z největších bank v Česku, členu skupiny Société Générale: rok v data science, pak dva roky převážně full-stack vývoje.',
+        role: 'Data engineer → full-stack vývojář',
+        summary: 'Tři roky v jedné z největších bank v Česku, členu skupiny Société Générale: rok v data engineeringu, pak dva roky převážně full-stack vývoje.',
         points: [
-          'Data scientist: práce s bankovními daty v SQL nad Teradatou, PostgreSQL a MySQL.',
+          'Data engineer: práce s bankovními daty v SQL nad Teradatou, PostgreSQL a MySQL.',
           'Full-stack vývojář: služby v Javě a Spring Bootu s Mavenem; frontendy v Reactu s TanStackem, Tailwindem a Bootstrapem.',
           'Nasazování přes Jenkins pipeline do Kubernetes.',
         ],
@@ -488,7 +488,7 @@ const ru: Dict = {
     label: 'Обо мне',
     title: 'Контракты, серверы, пиксели. Один разработчик — весь стек.',
     body: [
-      'Я Джахонгир, full-stack-разработчик из Праги, и уже десять лет без перерыва программирую. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала в data science, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
+      'Я Джахонгир, full-stack-разработчик из Праги, и уже десять лет без перерыва программирую. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала дата-инженером, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
       'Сейчас я Lead CTO в Neovate — небольшой студии, которая доводит продукт от наброска до продакшена, — и сам пишу код. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
     ],
     ai: {
@@ -538,10 +538,10 @@ const ru: Dict = {
         points: [],
       },
       kb: {
-        role: 'Data scientist → full-stack-разработчик',
-        summary: 'Три года в одном из крупнейших банков Чехии, входящем в группу Société Générale: год в data science, затем два года в основном full-stack-разработки.',
+        role: 'Data engineer → full-stack-разработчик',
+        summary: 'Три года в одном из крупнейших банков Чехии, входящем в группу Société Générale: год в data engineering, затем два года в основном full-stack-разработки.',
         points: [
-          'Data scientist: работа с банковскими данными на SQL в Teradata, PostgreSQL и MySQL.',
+          'Data engineer: работа с банковскими данными на SQL в Teradata, PostgreSQL и MySQL.',
           'Full-stack-разработчик: сервисы на Java и Spring Boot со сборкой Maven; фронтенд на React с TanStack, Tailwind и Bootstrap.',
           'Деплой через пайплайны Jenkins в Kubernetes.',
         ],
