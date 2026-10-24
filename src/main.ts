@@ -3,11 +3,12 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './style.css'
 import { encode } from 'uqr'
-import { LANGS, awards, cases, dicts, education, findexStats, jobs, nowUpdated, profile, proof, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type Proof, type StackId, type YM } from './content'
+import { LANGS, aiTools, awards, cases, dicts, education, findexStats, jobs, nowUpdated, profile, proof, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type Proof, type StackId, type YM } from './content'
 import gh from './github.json'
 
 // Lucide icons (ISC), inlined.
 const icons = {
+  sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
   arrow: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
   printer: '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
   mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
@@ -167,6 +168,17 @@ function about(t: Dict) {
   ${head('01', t.about.label, t.about.title)}
   <div class="about-text reveal">${t.about.body.map(p => `<p>${p}</p>`).join('')}</div>
   ${nowCard(t)}
+  <article class="card ai-card reveal">
+    <span class="service-icon">${svg('sparkles')}</span>
+    <div>
+      <h3>${t.about.ai.title}</h3>
+      <p>${t.about.ai.body}</p>
+    </div>
+    <div class="ai-tools">
+      <ul class="chips">${aiTools.map(s => `<li>${s}</li>`).join('')}</ul>
+      <p>${t.about.ai.modes}</p>
+    </div>
+  </article>
   <div class="services">
     ${services.map(([id, [title, body]]) => `
     <article class="card service reveal">

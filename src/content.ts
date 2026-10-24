@@ -61,6 +61,9 @@ export const proof: Partial<Record<ProjectId, Proof[]>> = {
   ],
 }
 
+// AI coding tools used daily, in the terminal and in the IDE. Shown as a card in About.
+export const aiTools = ['Claude Code', 'Codex', 'Cursor', 'Antigravity']
+
 // When the "Now" card in About was last true. Update with its text.
 export const nowUpdated: YM = [2026, 10]
 
@@ -68,14 +71,14 @@ export const nowUpdated: YM = [2026, 10]
 export const findexStats = { checked: [2026, 10] as YM, chains: 3, indexes: 19, aum: 2_500_000 }
 
 // Strongest first. Every entry is backed by shipped work or commits in the repos behind the projects above.
-export type StackId = 'web3' | 'frontend' | 'backend' | 'cloud' | 'quality' | 'ai'
+export type StackId = 'ai' | 'web3' | 'frontend' | 'backend' | 'cloud' | 'quality'
 export const stack: Record<StackId, string[]> = {
+  ai: ['Claude Code', 'Codex', 'Cursor', 'Antigravity', 'AI code review in CI', 'LLM APIs', 'AI agents', 'RAG', 'Sandboxed code execution', 'Genkit', 'On-chain automation'],
   web3: ['Solidity', 'EVM', 'viem', 'wagmi', 'Uniswap V4 SDKs', 'Safe', 'Zodiac Roles', 'ERC-4337', 'WalletConnect', 'The Graph', 'EVM nodes', 'TON', 'TON Connect'],
   frontend: ['TypeScript', 'React', 'TanStack Router', 'TanStack Query', 'TanStack Start', 'Next.js', 'Vite', 'Rsbuild', 'Module Federation', 'Tailwind CSS', 'shadcn/ui', 'Zustand', 'Zod', 'Design systems', 'Three.js', 'Vue', 'Telegram Mini Apps'],
   backend: ['Node.js', 'Bun', 'Deno', 'Express', 'Hono', 'Convex', 'REST & OpenAPI', 'GraphQL', 'PostgreSQL', 'MySQL', 'Teradata', 'Prisma', 'Drizzle', 'Firebase', 'Stripe', 'Java', 'Spring Boot', 'Python'],
   cloud: ['Docker', 'Kubernetes', 'GitHub Actions', 'Jenkins', 'AWS Lambda', 'API Gateway', 'S3', 'CloudFront', 'Serverless', 'Traefik', 'APISIX', 'Prometheus', 'Grafana', 'Sentry', 'Linux'],
   quality: ['Vitest', 'Playwright', 'Testing Library', 'Storybook', 'Jest', 'Biome', 'ESLint', 'Turborepo', 'semantic-release'],
-  ai: ['LLM APIs', 'AI agents', 'Claude Code', 'Codex', 'AI code review in CI', 'Sandboxed code execution', 'RAG', 'Genkit', 'On-chain automation'],
 }
 
 type JobText = { role: string; org?: string; summary: string; points: string[] }
@@ -125,8 +128,13 @@ const en = {
     title: 'Contracts, servers, pixels. One developer, the whole stack.',
     body: [
       'I’m Jakhongir, a full-stack developer in Prague. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first in data science, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
-      'Today I run Neovate, a small studio that takes products from a sketch to production. I like software that is simple to use, honest about what it does and boring to operate.',
+      'Today I run Neovate, a small studio that takes products from a sketch to production. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
     ],
+    ai: {
+      title: 'AI-native development',
+      body: 'AI agents are part of how I work every day, in the terminal and in the IDE. They draft, refactor, test and review; I own the architecture, the review and what ships.',
+      modes: 'CLI + IDE',
+    },
     services: {
       contracts: ['Smart contracts & DeFi', 'Solidity on EVM chains: protocols, vaults, index tokens and permissioned automation with Safe and Zodiac Roles.'],
       dapps: ['dApps & wallets', 'Frontends that talk to the chain through wagmi and viem: wallet flows, transaction simulation, calldata decoding.'],
@@ -234,7 +242,7 @@ const en = {
   stack: {
     label: 'Stack',
     title: 'Tools I reach for',
-    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend & data', cloud: 'Cloud & DevOps', quality: 'Testing & tooling', ai: 'AI & automation' },
+    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend & data', cloud: 'Cloud & DevOps', quality: 'Testing & tooling', ai: 'AI & agentic coding' },
   },
   background: { label: 'Background', title: 'Education & more' },
   education: {
@@ -301,8 +309,13 @@ const cs: Dict = {
     title: 'Kontrakty, servery, pixely. Jeden vývojář, celý stack.',
     body: [
       'Jsem Jakhongir, full-stack vývojář v Praze. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív v data science, pak jako full-stack vývojář v Javě — a pak jsem se naplno ponořil do web3: TON, EVM, Safe a Uniswap V4.',
-      'Dnes vedu Neovate, malé studio, které dotáhne produkt od skici až do produkce. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
+      'Dnes vedu Neovate, malé studio, které dotáhne produkt od skici až do produkce. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
     ],
+    ai: {
+      title: 'Vývoj s AI agenty',
+      body: 'AI agenti jsou součástí mé každodenní práce, v terminálu i v IDE. Navrhují, refaktorují, testují a reviewují kód; architekturu, review a to, co jde do produkce, mám na starosti já.',
+      modes: 'CLI + IDE',
+    },
     services: {
       contracts: ['Smart kontrakty a DeFi', 'Solidity na EVM sítích: protokoly, vaulty, indexové tokeny a automatizace s omezenými oprávněními přes Safe a Zodiac Roles.'],
       dapps: ['dAppky a peněženky', 'Frontendy napojené na blockchain přes wagmi a viem: připojení peněženek, simulace transakcí, dekódování calldata.'],
@@ -410,7 +423,7 @@ const cs: Dict = {
   stack: {
     label: 'Technologie',
     title: 'Nástroje, po kterých sahám',
-    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend a data', cloud: 'Cloud a DevOps', quality: 'Testování a nástroje', ai: 'AI a automatizace' },
+    groups: { web3: 'Web3', frontend: 'Frontend', backend: 'Backend a data', cloud: 'Cloud a DevOps', quality: 'Testování a nástroje', ai: 'AI a agentní vývoj' },
   },
   background: { label: 'Vzdělání', title: 'Vzdělání a další' },
   education: {
@@ -475,8 +488,13 @@ const ru: Dict = {
     title: 'Контракты, серверы, пиксели. Один разработчик — весь стек.',
     body: [
       'Я Джахонгир, full-stack-разработчик из Праги. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала в data science, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
-      'Сейчас руковожу Neovate — небольшой студией, которая доводит продукт от наброска до продакшена. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
+      'Сейчас руковожу Neovate — небольшой студией, которая доводит продукт от наброска до продакшена. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
     ],
+    ai: {
+      title: 'Разработка с AI-агентами',
+      body: 'AI-агенты — часть моей ежедневной работы, в терминале и в IDE. Они пишут, рефакторят, тестируют и ревьюят код, а архитектура, ревью и то, что уходит в продакшен, — на мне.',
+      modes: 'CLI + IDE',
+    },
     services: {
       contracts: ['Смарт-контракты и DeFi', 'Solidity в EVM-сетях: протоколы, хранилища, индексные токены и автоматизация с ограниченными правами через Safe и Zodiac Roles.'],
       dapps: ['dApp и кошельки', 'Фронтенды, которые общаются с блокчейном через wagmi и viem: подключение кошельков, симуляция транзакций, декодирование calldata.'],
@@ -584,7 +602,7 @@ const ru: Dict = {
   stack: {
     label: 'Стек',
     title: 'Чем я пользуюсь',
-    groups: { web3: 'Web3', frontend: 'Фронтенд', backend: 'Бэкенд и данные', cloud: 'Облако и DevOps', quality: 'Тестирование и инструменты', ai: 'AI и автоматизация' },
+    groups: { web3: 'Web3', frontend: 'Фронтенд', backend: 'Бэкенд и данные', cloud: 'Облако и DevOps', quality: 'Тестирование и инструменты', ai: 'AI и агентная разработка' },
   },
   background: { label: 'Образование', title: 'Образование и не только' },
   education: {
