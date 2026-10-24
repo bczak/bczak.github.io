@@ -63,7 +63,6 @@ function qr(url: string) {
   return `<svg viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" aria-hidden="true"><path d="${d}" fill="currentColor"/></svg>`
 }
 
-const levelName = (t: Dict, level: string) => level === 'native' ? t.languages.native : level
 const langUrl = (lang: Lang) => lang === 'en' ? profile.site : `${profile.site}?lang=${lang}`
 const toHex = (s: string) => [...s].map(c => c.charCodeAt(0).toString(16)).join('')
 const txHash = `0x${toHex('bczak.github.io')}`
@@ -438,7 +437,7 @@ function background(t: Dict) {
     <article class="card info reveal">
       <h3>${svg('languages')}${t.languages.title}</h3>
       <ul class="spoken">
-        ${spoken.map(([l, level]) => `<li><span>${t.languages.names[l]}</span><span class="level${level === 'native' ? ' level-native' : ''}">${levelName(t, level)}</span></li>`).join('')}
+        ${spoken.map(([l, level]) => `<li><span>${t.languages.names[l]}</span><span class="level${level === 'native' ? ' level-native' : ''}">${t.languages.levels[level]}</span></li>`).join('')}
       </ul>
     </article>
   </div>
@@ -497,7 +496,7 @@ function printCv(t: Dict, lang: Lang) {
       ${c('send', profile.telegram, host(profile.telegram))}
       ${c('linkedin', profile.linkedin, host(profile.linkedin))}
       ${c('github', profile.github, host(profile.github))}
-      <li>${svg('languages')}<span>${spoken.map(([l, level]) => `${t.languages.names[l]} <i>${levelName(t, level)}</i>`).join(' · ')}</span></li>
+      <li>${svg('languages')}<span>${spoken.map(([l, level]) => `${t.languages.names[l]} <i>${t.languages.levels[level]}</i>`).join(' · ')}</span></li>
     </ul>
   </div>
   <a class="pcv-qr" href="${langUrl(lang)}">${qr(langUrl(lang))}<span>${t.print.live}</span></a>

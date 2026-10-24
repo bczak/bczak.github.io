@@ -74,10 +74,10 @@ export const findexStats = { checked: [2026, 10] as YM, chains: 3, indexes: 19, 
 export type StackId = 'ai' | 'web3' | 'frontend' | 'backend' | 'cloud' | 'quality'
 export const stack: Record<StackId, string[]> = {
   ai: ['Claude Code', 'Codex', 'Cursor', 'Antigravity', 'AI code review in CI', 'LLM APIs', 'AI agents', 'RAG', 'Sandboxed code execution', 'Genkit', 'On-chain automation'],
-  web3: ['Solidity', 'EVM', 'viem', 'wagmi', 'Uniswap V4 SDKs', 'Safe', 'Zodiac Roles', 'ERC-4337', 'WalletConnect', 'The Graph', 'EVM nodes', 'TON', 'TON Connect'],
+  web3: ['Solidity', 'EVM', 'viem', 'wagmi', 'The Graph', 'Uniswap V4 SDKs', 'Safe', 'Zodiac Roles', 'ERC-4337', 'WalletConnect', 'EVM nodes', 'TON', 'TON Connect'],
   frontend: ['TypeScript', 'React', 'TanStack Router', 'TanStack Query', 'TanStack Start', 'Next.js', 'Vite', 'Rsbuild', 'Module Federation', 'Tailwind CSS', 'shadcn/ui', 'Zustand', 'Zod', 'Design systems', 'Three.js', 'Vue', 'Telegram Mini Apps'],
   backend: ['Node.js', 'Bun', 'Deno', 'Express', 'Hono', 'Convex', 'REST & OpenAPI', 'GraphQL', 'PostgreSQL', 'MySQL', 'Teradata', 'Prisma', 'Drizzle', 'Firebase', 'Stripe', 'Java', 'Spring Boot', 'Python'],
-  cloud: ['Docker', 'Kubernetes', 'GitHub Actions', 'Jenkins', 'AWS Lambda', 'API Gateway', 'S3', 'CloudFront', 'Serverless', 'Traefik', 'APISIX', 'Prometheus', 'Grafana', 'Sentry', 'Linux'],
+  cloud: ['Docker', 'Kubernetes', 'Prometheus', 'Grafana', 'GitHub Actions', 'Jenkins', 'AWS Lambda', 'API Gateway', 'S3', 'CloudFront', 'Serverless', 'Traefik', 'APISIX', 'Sentry', 'Linux'],
   quality: ['Vitest', 'Playwright', 'Testing Library', 'Storybook', 'Jest', 'Biome', 'ESLint', 'Turborepo', 'semantic-release'],
 }
 
@@ -94,11 +94,12 @@ export const awards: { id: 'collaby' | 'hackaton'; year: number; url: string }[]
   { id: 'hackaton', year: 2022, url: 'https://www.linkedin.com/posts/arina-momot-718a311b8_last-weekend-our-team-nftonspace-consisting-activity-6986029004973621249-tcPK' },
 ]
 
-// CEFR level, or 'native' (translated).
-export const spoken: [Lang, string][] = [
+// Level per language; the words are translated in `languages.levels`.
+export type Level = 'native' | 'fluent' | 'proficient'
+export const spoken: [Lang, Level][] = [
   ['ru', 'native'],
-  ['cs', 'C1–C2'],
-  ['en', 'B2–C1'],
+  ['cs', 'fluent'],
+  ['en', 'proficient'],
 ]
 
 const en = {
@@ -108,17 +109,17 @@ const en = {
   prague: 'Prague, Czechia',
   meta: {
     title: 'Jakhongir Tashpulatov — Full-stack developer',
-    description: 'Full-stack developer in Prague. Smart contracts, backends, indexers and interfaces — the whole stack, shipped.',
+    description: 'Full-stack developer in Prague with 10+ years of hands-on coding. Smart contracts, backends, indexers and interfaces — the whole stack, shipped.',
   },
   nav: { about: 'About', experience: 'Experience', projects: 'Projects', stack: 'Stack', contact: 'Contact', print: 'Print CV', language: 'Language' },
   hero: {
-    status: 'Taking on new projects',
+    status: 'Open to new roles',
     tagline: 'I build the whole thing: smart contracts, the backend that indexes them and the interface people actually use.',
     contact: 'Get in touch',
     print: 'Print CV',
   },
   stats: [
-    ['10+', 'years shipping software'],
+    ['10+', 'years writing code'],
     ['3+', 'years at Komerční banka: data, then full-stack Java'],
     ['#1', 'Best TWA category at Hack-a-TON × Prague'],
     ['3', 'languages spoken'],
@@ -127,8 +128,8 @@ const en = {
     label: 'About',
     title: 'Contracts, servers, pixels. One developer, the whole stack.',
     body: [
-      'I’m Jakhongir, a full-stack developer in Prague. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first in data science, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
-      'Today I’m CEO and CTO of Neovate, a small studio that takes products from a sketch to production — and I still code hands-on. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
+      'I’m Jakhongir, a full-stack developer in Prague, and I’ve been coding for ten years straight. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first in data science, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
+      'Today I’m Lead CTO at Neovate, a small studio that takes products from a sketch to production, and I write code myself. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
     ],
     ai: {
       title: 'AI-native development',
@@ -138,7 +139,7 @@ const en = {
     services: {
       contracts: ['Smart contracts & DeFi', 'Solidity on EVM chains: protocols, vaults, index tokens and permissioned automation with Safe and Zodiac Roles.'],
       dapps: ['dApps & wallets', 'Frontends that talk to the chain through wagmi and viem: wallet flows, transaction simulation, calldata decoding.'],
-      indexing: ['Indexing & infra', 'Subgraphs, RPC gateways and scheduled on-chain jobs, so the data behind the UI is fast and correct.'],
+      indexing: ['Indexing & infra', 'Subgraphs on The Graph, RPC gateways and scheduled on-chain jobs, monitored with Prometheus and Grafana, so the data behind the UI is fast and correct.'],
       backend: ['Backend & APIs', 'Java and Spring Boot, Node.js, Bun, Deno and Python services, deployed to Kubernetes or serverless on AWS, integrated with third-party APIs.'],
       frontend: ['Frontend & design systems', 'React and Vue apps, component libraries and landing pages that look sharp and load fast.'],
       telegram: ['Telegram bots & Mini Apps', 'Bots since 2016 and Mini Apps with TON Connect — including a hackathon-winning game.'],
@@ -147,8 +148,8 @@ const en = {
   now: {
     label: 'Now',
     building: ['Building', 'Flow at {thyme}, where AI agents write and run on-chain functions'],
-    running: ['Running', '{neovate}, a software studio in Prague'],
-    open: ['Open to', 'New projects'],
+    running: ['Leading', 'Engineering at {neovate}, a software studio in Prague'],
+    open: ['Open to', 'New roles'],
   },
   experience: {
     label: 'Experience',
@@ -156,10 +157,10 @@ const en = {
     present: 'Present',
     jobs: {
       neovate: {
-        role: 'CEO & CTO',
-        summary: 'Running a Prague studio for web3, fintech and AI clients. As CTO I own the architecture and technical decisions and write production code myself.',
+        role: 'Lead CTO',
+        summary: 'Hands-on technical lead at a Prague studio that builds web3, fintech and AI products. I own the architecture and technical decisions and write production code myself.',
         points: [
-          'Built Findex’s subgraphs, trading app and back office myself — an index-token protocol on Uniswap V4 liquidity positions.',
+          'Built the subgraphs (The Graph), trading app and back office myself for Findex, an index-token protocol on Uniswap V4 liquidity positions.',
           'Building thyme/labs: EVM RPC (Gate), hosted subgraphs (Atlas) and Flow — TypeScript automation that runs from the user’s own Safe.',
           'Shipped BCkit, a free web3 debugging toolkit, and QandA.fun, a live multiplayer quiz platform.',
           'Lead a team of frontend, backend and smart-contract engineers with in-house QA and design.',
@@ -168,7 +169,7 @@ const en = {
       confidential: {
         role: 'Financial product development',
         org: 'Confidential company (NDA)',
-        summary: 'Worked on a finance-related product. Company and project details remain confidential under an NDA for 10 years after contract termination.',
+        summary: 'In-house product team on a finance-related product. Company and project details remain confidential under an NDA for 10 years after contract termination.',
         points: [],
       },
       kindred: {
@@ -257,14 +258,14 @@ const en = {
   },
   languages: {
     title: 'Languages',
-    native: 'Native',
+    levels: { native: 'Native', fluent: 'Fluent', proficient: 'Proficient' } as Record<Level, string>,
     names: { ru: 'Russian', cs: 'Czech', en: 'English' },
   },
   contact: {
     label: 'Contact',
-    title: 'Have something to build?',
+    title: 'Hiring a full-stack developer?',
     title2: 'Let’s talk.',
-    body: 'Protocol, dApp, backend or a landing page — tell me what you’re building and I’ll tell you honestly how I would do it.',
+    body: 'Tell me about the role and what your team is building, and I’ll tell you honestly how I would help.',
     copy: 'Copy',
     copied: 'Copied',
   },
@@ -289,17 +290,17 @@ const cs: Dict = {
   prague: 'Praha, Česko',
   meta: {
     title: 'Jakhongir Tashpulatov — Full-stack vývojář',
-    description: 'Full-stack vývojář v Praze. Smart kontrakty, backendy, indexery i rozhraní — celý stack od návrhu po provoz.',
+    description: 'Full-stack vývojář v Praze s více než 10 lety praxe v programování. Smart kontrakty, backendy, indexery i rozhraní — celý stack od návrhu po provoz.',
   },
   nav: { about: 'O mně', experience: 'Zkušenosti', projects: 'Projekty', stack: 'Technologie', contact: 'Kontakt', print: 'Tisk CV', language: 'Jazyk' },
   hero: {
-    status: 'Beru nové projekty',
+    status: 'Hledám novou pozici',
     tagline: 'Postavím celou věc: smart kontrakty, backend, který je indexuje, i rozhraní, které lidé opravdu používají.',
     contact: 'Napište mi',
     print: 'Vytisknout CV',
   },
   stats: [
-    ['10+', 'let vývoje softwaru'],
+    ['10+', 'let programování'],
     ['3+', 'roky v Komerční bance: data, pak full-stack Java'],
     ['#1', 'kategorie Best TWA na Hack-a-TON × Prague'],
     ['3', 'jazyky, kterými mluvím'],
@@ -308,8 +309,8 @@ const cs: Dict = {
     label: 'O mně',
     title: 'Kontrakty, servery, pixely. Jeden vývojář, celý stack.',
     body: [
-      'Jsem Jakhongir, full-stack vývojář v Praze. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív v data science, pak jako full-stack vývojář v Javě — a pak jsem se naplno ponořil do web3: TON, EVM, Safe a Uniswap V4.',
-      'Dnes jsem CEO a CTO v Neovate, malém studiu, které dotáhne produkt od skici až do produkce — a pořád sám programuji. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
+      'Jsem Jakhongir, full-stack vývojář v Praze, a už deset let nepřetržitě programuji. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív v data science, pak jako full-stack vývojář v Javě — a pak jsem se naplno ponořil do web3: TON, EVM, Safe a Uniswap V4.',
+      'Dnes jsem Lead CTO v Neovate, malém studiu, které dotáhne produkt od skici až do produkce — a sám programuji. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
     ],
     ai: {
       title: 'Vývoj s AI agenty',
@@ -319,7 +320,7 @@ const cs: Dict = {
     services: {
       contracts: ['Smart kontrakty a DeFi', 'Solidity na EVM sítích: protokoly, vaulty, indexové tokeny a automatizace s omezenými oprávněními přes Safe a Zodiac Roles.'],
       dapps: ['dAppky a peněženky', 'Frontendy napojené na blockchain přes wagmi a viem: připojení peněženek, simulace transakcí, dekódování calldata.'],
-      indexing: ['Indexace a infrastruktura', 'Subgraphy, RPC brány a plánované on-chain úlohy, aby data pod rozhraním byla rychlá a správná.'],
+      indexing: ['Indexace a infrastruktura', 'Subgraphy pro The Graph, RPC brány a plánované on-chain úlohy, monitorované přes Prometheus a Grafanu, aby data pod rozhraním byla rychlá a správná.'],
       backend: ['Backend a API', 'Služby v Javě a Spring Bootu, Node.js, Bunu, Denu a Pythonu, nasazené do Kubernetes nebo serverless na AWS, napojené na externí API.'],
       frontend: ['Frontend a design systémy', 'Aplikace v Reactu a Vue, knihovny komponent a landing pages, které vypadají ostře a načítají se rychle.'],
       telegram: ['Telegram boti a Mini Apps', 'Boty píšu od roku 2016, Mini Apps s TON Connect — včetně hry, která vyhrála hackathon.'],
@@ -328,8 +329,8 @@ const cs: Dict = {
   now: {
     label: 'Teď',
     building: ['Stavím', 'Flow v {thyme}, kde AI agenti píšou a spouštějí on-chain funkce'],
-    running: ['Vedu', '{neovate}, softwarové studio v Praze'],
-    open: ['Beru', 'Nové projekty'],
+    running: ['Vedu', 'Vývoj v {neovate}, softwarovém studiu v Praze'],
+    open: ['Hledám', 'Novou pozici'],
   },
   experience: {
     label: 'Zkušenosti',
@@ -337,10 +338,10 @@ const cs: Dict = {
     present: 'dosud',
     jobs: {
       neovate: {
-        role: 'CEO a CTO',
-        summary: 'Vedu pražské studio pro klienty z web3, fintechu a AI. Jako CTO odpovídám za architekturu a technická rozhodnutí a produkční kód píšu i sám.',
+        role: 'Lead CTO',
+        summary: 'Technicky vedu pražské studio, které vyvíjí produkty z oblasti web3, fintechu a AI. Odpovídám za architekturu a technická rozhodnutí a sám píšu produkční kód.',
         points: [
-          'Sám jsem postavil subgraphy, obchodní aplikaci a back office Findexu — protokolu indexových tokenů nad likviditními pozicemi Uniswap V4.',
+          'Sám jsem postavil subgraphy (The Graph), obchodní aplikaci a back office Findexu — protokolu indexových tokenů nad likviditními pozicemi Uniswap V4.',
           'Stavíme thyme/labs: EVM RPC (Gate), hostované subgraphy (Atlas) a Flow — automatizaci v TypeScriptu, která běží z vlastního Safe uživatele.',
           'Vydali jsme BCkit, bezplatnou sadu nástrojů pro ladění web3, a QandA.fun, platformu pro živé kvízy pro více hráčů.',
           'Vedu tým frontendových, backendových a smart-kontraktových vývojářů s vlastním QA a designem.',
@@ -349,7 +350,7 @@ const cs: Dict = {
       confidential: {
         role: 'Vývoj finančního produktu',
         org: 'Nezveřejněná společnost (NDA)',
-        summary: 'Práce na produktu z oblasti financí. Informace o společnosti a projektu zůstávají důvěrné na základě NDA po dobu 10 let od ukončení smlouvy.',
+        summary: 'Práce v interním produktovém týmu na finančním produktu. Informace o společnosti a projektu zůstávají důvěrné na základě NDA po dobu 10 let od ukončení smlouvy.',
         points: [],
       },
       kindred: {
@@ -438,14 +439,14 @@ const cs: Dict = {
   },
   languages: {
     title: 'Jazyky',
-    native: 'Rodilý mluvčí',
+    levels: { native: 'Rodilý mluvčí', fluent: 'Plynulá', proficient: 'Pokročilá' },
     names: { ru: 'Ruština', cs: 'Čeština', en: 'Angličtina' },
   },
   contact: {
     label: 'Kontakt',
-    title: 'Máte co postavit?',
+    title: 'Hledáte full-stack vývojáře?',
     title2: 'Pojďme to probrat.',
-    body: 'Protokol, dAppka, backend nebo landing page — napište mi, co stavíte, a já vám upřímně řeknu, jak bych to udělal.',
+    body: 'Napište mi, o jakou pozici jde a co váš tým staví, a já vám upřímně řeknu, jak bych mohl pomoct.',
     copy: 'Kopírovat',
     copied: 'Zkopírováno',
   },
@@ -468,17 +469,17 @@ const ru: Dict = {
   prague: 'Прага, Чехия',
   meta: {
     title: 'Джахонгир Ташпулатов — Full-stack-разработчик',
-    description: 'Full-stack-разработчик в Праге. Смарт-контракты, бэкенды, индексеры и интерфейсы — весь стек под ключ.',
+    description: 'Full-stack-разработчик в Праге, более 10 лет пишу код. Смарт-контракты, бэкенды, индексеры и интерфейсы — весь стек под ключ.',
   },
   nav: { about: 'Обо мне', experience: 'Опыт', projects: 'Проекты', stack: 'Стек', contact: 'Контакты', print: 'Печать CV', language: 'Язык' },
   hero: {
-    status: 'Беру новые проекты',
+    status: 'Открыт к новым предложениям',
     tagline: 'Делаю всё целиком: смарт-контракты, бэкенд, который их индексирует, и интерфейс, которым люди реально пользуются.',
     contact: 'Написать мне',
     print: 'Распечатать CV',
   },
   stats: [
-    ['10+', 'лет в разработке'],
+    ['10+', 'лет пишу код'],
     ['3+', 'года в Komerční banka: данные, затем full-stack на Java'],
     ['#1', 'номинация Best TWA на Hack-a-TON × Prague'],
     ['3', 'языка, на которых говорю'],
@@ -487,8 +488,8 @@ const ru: Dict = {
     label: 'Обо мне',
     title: 'Контракты, серверы, пиксели. Один разработчик — весь стек.',
     body: [
-      'Я Джахонгир, full-stack-разработчик из Праги. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала в data science, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
-      'Сейчас я CEO и CTO в Neovate — небольшой студии, которая доводит продукт от наброска до продакшена, — и по-прежнему сам пишу код. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
+      'Я Джахонгир, full-stack-разработчик из Праги, и уже десять лет без перерыва программирую. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала в data science, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
+      'Сейчас я Lead CTO в Neovate — небольшой студии, которая доводит продукт от наброска до продакшена, — и сам пишу код. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
     ],
     ai: {
       title: 'Разработка с AI-агентами',
@@ -498,7 +499,7 @@ const ru: Dict = {
     services: {
       contracts: ['Смарт-контракты и DeFi', 'Solidity в EVM-сетях: протоколы, хранилища, индексные токены и автоматизация с ограниченными правами через Safe и Zodiac Roles.'],
       dapps: ['dApp и кошельки', 'Фронтенды, которые общаются с блокчейном через wagmi и viem: подключение кошельков, симуляция транзакций, декодирование calldata.'],
-      indexing: ['Индексация и инфраструктура', 'Сабграфы, RPC-шлюзы и on-chain задачи по расписанию — чтобы данные под интерфейсом были быстрыми и точными.'],
+      indexing: ['Индексация и инфраструктура', 'Сабграфы на The Graph, RPC-шлюзы, on-chain задачи по расписанию и мониторинг в Prometheus и Grafana — чтобы данные под интерфейсом были быстрыми и точными.'],
       backend: ['Бэкенд и API', 'Сервисы на Java и Spring Boot, Node.js, Bun, Deno и Python — в Kubernetes или serverless на AWS, с интеграциями сторонних API.'],
       frontend: ['Фронтенд и дизайн-системы', 'Приложения на React и Vue, библиотеки компонентов и лендинги, которые выглядят чётко и быстро грузятся.'],
       telegram: ['Telegram-боты и Mini Apps', 'Боты с 2016 года и Mini Apps с TON Connect — включая игру, победившую на хакатоне.'],
@@ -507,8 +508,8 @@ const ru: Dict = {
   now: {
     label: 'Сейчас',
     building: ['Строю', 'Flow в {thyme}, где AI-агенты пишут и запускают on-chain функции'],
-    running: ['Руковожу', '{neovate} — софтверной студией в Праге'],
-    open: ['Беру', 'Новые проекты'],
+    running: ['Руковожу', 'Разработкой в {neovate} — софтверной студии в Праге'],
+    open: ['Рассматриваю', 'Новые предложения'],
   },
   experience: {
     label: 'Опыт',
@@ -516,10 +517,10 @@ const ru: Dict = {
     present: 'сейчас',
     jobs: {
       neovate: {
-        role: 'CEO и CTO',
-        summary: 'Руковожу пражской студией для клиентов из web3, финтеха и AI. Как CTO отвечаю за архитектуру и технические решения и сам пишу продакшен-код.',
+        role: 'Lead CTO',
+        summary: 'Играющий техлид пражской студии, которая делает web3-, финтех- и AI-продукты. Отвечаю за архитектуру и технические решения и сам пишу продакшен-код.',
         points: [
-          'Сам сделал сабграфы, торговое приложение и бэк-офис Findex — протокола индексных токенов на позициях ликвидности Uniswap V4.',
+          'Сам сделал сабграфы (The Graph), торговое приложение и бэк-офис Findex — протокола индексных токенов на позициях ликвидности Uniswap V4.',
           'Строим thyme/labs: EVM RPC (Gate), хостинг сабграфов (Atlas) и Flow — автоматизацию на TypeScript, которая работает из собственного Safe пользователя.',
           'Запустили BCkit — бесплатный набор инструментов для отладки web3 — и QandA.fun, платформу живых мультиплеерных квизов.',
           'Руковожу командой фронтенд-, бэкенд- и смарт-контракт-разработчиков со своими QA и дизайном.',
@@ -528,7 +529,7 @@ const ru: Dict = {
       confidential: {
         role: 'Разработка финансового продукта',
         org: 'Конфиденциальная компания (NDA)',
-        summary: 'Работал над продуктом в сфере финансов. Информация о компании и проекте остаётся конфиденциальной по NDA в течение 10 лет после прекращения договора.',
+        summary: 'Работал во внутренней продуктовой команде компании над продуктом в сфере финансов. Информация о компании и проекте остаётся конфиденциальной по NDA в течение 10 лет после прекращения договора.',
         points: [],
       },
       kindred: {
@@ -617,14 +618,14 @@ const ru: Dict = {
   },
   languages: {
     title: 'Языки',
-    native: 'Родной',
+    levels: { native: 'Родной', fluent: 'Свободный', proficient: 'Продвинутый' },
     names: { ru: 'Русский', cs: 'Чешский', en: 'Английский' },
   },
   contact: {
     label: 'Контакты',
-    title: 'Есть что построить?',
+    title: 'Ищете full-stack-разработчика?',
     title2: 'Давайте обсудим.',
-    body: 'Протокол, dApp, бэкенд или лендинг — расскажите, что строите, и я честно скажу, как сделал бы это сам.',
+    body: 'Расскажите о роли и о том, что строит ваша команда, — и я честно скажу, чем могу быть полезен.',
     copy: 'Копировать',
     copied: 'Скопировано',
   },
