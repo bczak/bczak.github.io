@@ -128,7 +128,7 @@ const en = {
     title: 'Contracts, servers, pixels. One developer, the whole stack.',
     body: [
       'I’m Jakhongir, a full-stack developer in Prague. I started freelancing in 2016 with Telegram bots and web apps, spent three years at Komerční banka — first in data science, then as a full-stack Java developer — and then went deep into web3: TON, EVM, Safe and Uniswap V4.',
-      'Today I run Neovate, a small studio that takes products from a sketch to production. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
+      'Today I’m CEO and CTO of Neovate, a small studio that takes products from a sketch to production — and I still code hands-on. I build with AI agents every day — Claude Code, Codex, Cursor and Antigravity, in the terminal and in the IDE. I like software that is simple to use, honest about what it does and boring to operate.',
     ],
     ai: {
       title: 'AI-native development',
@@ -156,8 +156,8 @@ const en = {
     present: 'Present',
     jobs: {
       neovate: {
-        role: 'CEO',
-        summary: 'Running a Prague software studio that designs, builds and tests products — from smart contracts to landing pages — for web3, fintech and AI clients.',
+        role: 'CEO & CTO',
+        summary: 'Running a Prague studio for web3, fintech and AI clients. As CTO I own the architecture and technical decisions and write production code myself.',
         points: [
           'Built Findex’s subgraphs, trading app and back office myself — an index-token protocol on Uniswap V4 liquidity positions.',
           'Building thyme/labs: EVM RPC (Gate), hosted subgraphs (Atlas) and Flow — TypeScript automation that runs from the user’s own Safe.',
@@ -309,7 +309,7 @@ const cs: Dict = {
     title: 'Kontrakty, servery, pixely. Jeden vývojář, celý stack.',
     body: [
       'Jsem Jakhongir, full-stack vývojář v Praze. Jako freelancer jsem začal v roce 2016 s Telegram boty a webovými aplikacemi, tři roky jsem strávil v Komerční bance — nejdřív v data science, pak jako full-stack vývojář v Javě — a pak jsem se naplno ponořil do web3: TON, EVM, Safe a Uniswap V4.',
-      'Dnes vedu Neovate, malé studio, které dotáhne produkt od skici až do produkce. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
+      'Dnes jsem CEO a CTO v Neovate, malém studiu, které dotáhne produkt od skici až do produkce — a pořád sám programuji. Každý den pracuji s AI agenty — Claude Code, Codex, Cursor a Antigravity, v terminálu i v IDE. Mám rád software, který se snadno používá, dělá přesně to, co slibuje, a jehož provoz je nudný.',
     ],
     ai: {
       title: 'Vývoj s AI agenty',
@@ -337,8 +337,8 @@ const cs: Dict = {
     present: 'dosud',
     jobs: {
       neovate: {
-        role: 'CEO',
-        summary: 'Vedu pražské softwarové studio, které navrhuje, vyvíjí a testuje produkty — od smart kontraktů po landing pages — pro klienty z web3, fintechu a AI.',
+        role: 'CEO a CTO',
+        summary: 'Vedu pražské studio pro klienty z web3, fintechu a AI. Jako CTO odpovídám za architekturu a technická rozhodnutí a produkční kód píšu i sám.',
         points: [
           'Sám jsem postavil subgraphy, obchodní aplikaci a back office Findexu — protokolu indexových tokenů nad likviditními pozicemi Uniswap V4.',
           'Stavíme thyme/labs: EVM RPC (Gate), hostované subgraphy (Atlas) a Flow — automatizaci v TypeScriptu, která běží z vlastního Safe uživatele.',
@@ -488,7 +488,7 @@ const ru: Dict = {
     title: 'Контракты, серверы, пиксели. Один разработчик — весь стек.',
     body: [
       'Я Джахонгир, full-stack-разработчик из Праги. Начал фрилансить в 2016 году с Telegram-ботов и веб-приложений, три года работал в Komerční banka — сначала в data science, потом full-stack-разработчиком на Java, — а потом с головой ушёл в web3: TON, EVM, Safe и Uniswap V4.',
-      'Сейчас руковожу Neovate — небольшой студией, которая доводит продукт от наброска до продакшена. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
+      'Сейчас я CEO и CTO в Neovate — небольшой студии, которая доводит продукт от наброска до продакшена, — и по-прежнему сам пишу код. Каждый день работаю с AI-агентами — Claude Code, Codex, Cursor и Antigravity, в терминале и в IDE. Люблю софт, которым просто пользоваться, который честно делает то, что обещает, и который скучно поддерживать.',
     ],
     ai: {
       title: 'Разработка с AI-агентами',
@@ -516,8 +516,8 @@ const ru: Dict = {
     present: 'сейчас',
     jobs: {
       neovate: {
-        role: 'CEO',
-        summary: 'Руковожу пражской студией, которая проектирует, разрабатывает и тестирует продукты — от смарт-контрактов до лендингов — для клиентов из web3, финтеха и AI.',
+        role: 'CEO и CTO',
+        summary: 'Руковожу пражской студией для клиентов из web3, финтеха и AI. Как CTO отвечаю за архитектуру и технические решения и сам пишу продакшен-код.',
         points: [
           'Сам сделал сабграфы, торговое приложение и бэк-офис Findex — протокола индексных токенов на позициях ликвидности Uniswap V4.',
           'Строим thyme/labs: EVM RPC (Gate), хостинг сабграфов (Atlas) и Flow — автоматизацию на TypeScript, которая работает из собственного Safe пользователя.',
