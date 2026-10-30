@@ -22,7 +22,7 @@ export type JobId = 'neovate' | 'confidential' | 'kindred' | 'kb' | 'freelance'
 // lead: the print CV sets the theme of this job's first `lead` bullets in bold ("Set up CI/CD:").
 export const jobs: { id: JobId; org?: string; url?: string; from: YM | number; to?: YM | number; prague?: boolean; lead?: number }[] = [
   { id: 'neovate', org: 'Neovate s.r.o.', url: 'https://neovate.dev', from: [2025, 3], prague: true, lead: 3 },
-  { id: 'confidential', from: 2023, to: 2025 },
+  { id: 'confidential', from: [2023, 7], to: [2025, 2] },
   { id: 'kindred', org: 'KINDRED', from: [2023, 4], to: [2023, 6], prague: true },
   { id: 'kb', org: 'Komerční banka', url: 'https://www.kb.cz', from: [2020, 2], to: [2023, 5], prague: true },
   { id: 'freelance', from: [2016, 9], to: [2026, 3] },
