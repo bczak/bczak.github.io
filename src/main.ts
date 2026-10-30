@@ -3,7 +3,7 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import './style.css'
 import { encode } from 'uqr'
-import { LANGS, aiTools, awards, cases, dicts, education, findexStats, jobs, nowUpdated, profile, proof, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type Proof, type StackId, type YM } from './content'
+import { LANGS, aiTools, awards, cases, dicts, education, findexStats, jobs, nowUpdated, pipeline, printFocus, profile, proof, projects, spoken, stack, type Dict, type Lang, type Plural, type ProjectId, type Proof, type StackId, type YM } from './content'
 import gh from './github.json'
 
 // Lucide icons (ISC), inlined.
@@ -30,6 +30,8 @@ const icons = {
   badge: '<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>',
   shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
   package: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
   languages: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
 }
 type Icon = keyof typeof icons
@@ -105,6 +107,7 @@ function receipt() {
 <span class="k">contracts</span>: <span class="s">"Solidity"</span>
 <span class="k">backend</span>:   <span class="s">"Java · Spring · Node"</span>
 <span class="k">frontend</span>:  <span class="s">"React · Vue"</span>
+<span class="k">infra</span>:     <span class="s">"Docker · CI/CD"</span>
 <span class="k">chains</span>:    [<span class="s">"EVM"</span>, <span class="s">"TON"</span>]</pre>
     ${row('Gas', 'sponsored <span class="text-lime">✓</span>')}
   </div>
@@ -160,6 +163,30 @@ function nowCard(t: Dict) {
   </div>`
 }
 
+// Zero to production as a CI run: one job per stage, each check lights up as its stage scrolls in.
+// Support never finishes, so it gets a loop instead of a check.
+function zeroCard(t: Dict) {
+  const z = t.about.zero
+  return `
+  <article class="card zero reveal">
+    <header class="zero-head">
+      <span class="service-icon">${svg('rocket')}</span>
+      <div>
+        <h3>${z.title}</h3>
+        <p>${z.body}</p>
+      </div>
+      <p class="zero-run">${svg('check', 'icon-sm')}${z.run}</p>
+    </header>
+    <ol class="zero-steps">
+      ${pipeline.map(({ id, tools }, i) => `
+      <li style="--i:${i}">
+        <p class="zero-step"><span class="zero-dot">${svg(id === 'support' ? 'refresh' : 'check', 'icon-sm')}</span><span class="zero-n">${String(i + 1).padStart(2, '0')}</span>${z.stages[id]}</p>
+        <ul>${tools.map(x => `<li>${x}</li>`).join('')}</ul>
+      </li>`).join('')}
+    </ol>
+  </article>`
+}
+
 function about(t: Dict) {
   const services = Object.entries(t.about.services) as [keyof Dict['about']['services'], string[]][]
   return `
@@ -167,6 +194,7 @@ function about(t: Dict) {
   ${head('01', t.about.label, t.about.title)}
   <div class="about-text reveal">${t.about.body.map(p => `<p>${p}</p>`).join('')}</div>
   ${nowCard(t)}
+  ${zeroCard(t)}
   <article class="card ai-card reveal">
     <span class="service-icon">${svg('sparkles')}</span>
     <div>
@@ -481,77 +509,98 @@ const screen = (t: Dict, lang: Lang) =>
 
 /* ---------- print ---------- */
 
-// Project details also live in the job bullets and awards, so print keeps it to one line.
-const firstSentence = (s: string) => s.split(/(?<=\.)\s/)[0]
+// Print typography. Only spaces change, so the PDF text still reads as the site does for ATS parsers.
+// A dash never starts a line, a number stays with the word after it ("14 dashboards"), a one-letter word
+// (I, a, v, s, и, в, …) never ends one, and product names and hyphenated terms ("bare-metal") stay whole.
+const unbroken = ['The Graph', 'Uniswap V4', 'GitHub Actions', 'Spring Boot', 'Komerční banka', 'Société Générale', 'Lead Tech Engineer']
+const tie = (s: string) => unbroken
+  .reduce((s, name) => s.replaceAll(name, name.replaceAll(' ', '\u00a0')), s)
+  .replace(/ —/g, '\u00a0—')
+  .replace(/(?<=^|[\s(])(\d+)\s/g, '$1\u00a0')
+  .replace(/(?<=^|[\s(])(\p{L})\s/gu, '$1\u00a0')
+  .replace(/[\p{L}\d]+(?:-[\p{L}\d]+)+/gu, w => `<span class="nw">${w}</span>`)
 
+// The featured job's first bullets open with their theme in bold ("Set up CI/CD:"), so the page scans as
+// infrastructure, CI/CD, monitoring before anything else.
+const point = (p: string, lead: boolean) => {
+  const i = p.indexOf(': ')
+  return lead && i > 0 ? `<li><b>${tie(p.slice(0, i + 1))}</b>${tie(p.slice(i + 1))}</li>` : `<li>${tie(p)}</li>`
+}
+
+// One A4 page: a dark band like the site's hero (name, role, contacts, languages, QR), then profile and
+// experience beside a sidebar of skills, projects, education and awards. The current job gets the highlighted
+// panel. Projects show name and domain only: what they do is already in the Neovate bullets and the awards.
 function printCv(t: Dict, lang: Lang) {
+  const [first, ...rest] = t.name.split(' ')
   const c = (icon: Icon, href: string, label: string) => `<li>${svg(icon)}<a href="${href}">${label}</a></li>`
   return `
-<header class="pcv-head">
-  <div>
-    <div class="pcv-name">${logo('pcv-logo')}<h1>${t.name}</h1></div>
-    <p class="pcv-role">${t.role}<span>${t.prague}</span></p>
-    <ul class="pcv-contacts">
-      ${c('mail', `mailto:${profile.email}`, profile.email)}
-      ${c('send', profile.telegram, host(profile.telegram))}
-      ${c('linkedin', profile.linkedin, host(profile.linkedin))}
-      ${c('github', profile.github, host(profile.github))}
-      <li>${svg('languages')}<span>${spoken.map(([l, level]) => `${t.languages.names[l]} <i>${t.languages.levels[level]}</i>`).join(' · ')}</span></li>
-    </ul>
+<header class="pcv-band">
+  <div class="pcv-id">
+    <h1 class="pcv-name"><span>${first}</span> <span>${rest.join(' ')}</span></h1>
+    <i class="pcv-sheen" aria-hidden="true"></i>
+    <p class="pcv-role">${t.role}</p>
   </div>
+  <ul class="pcv-contacts">
+    ${c('mail', `mailto:${profile.email}`, profile.email)}
+    ${c('send', profile.telegram, host(profile.telegram))}
+    ${c('linkedin', profile.linkedin, host(profile.linkedin))}
+    ${c('github', profile.github, host(profile.github))}
+    <li>${logo('icon')}<a href="${langUrl(lang)}">${host(profile.site)}</a></li>
+  </ul>
+  <ul class="pcv-facts">
+    <li>${svg('pin')}<span>${t.prague}</span></li>
+    ${spoken.map(([l, level], i) => `<li>${i ? '' : svg('languages')}<span>${t.languages.names[l]}</span> <i>${t.languages.levels[level]}</i></li>`).join('')}
+  </ul>
   <a class="pcv-qr" href="${langUrl(lang)}">${qr(langUrl(lang))}<span>${t.print.live}</span></a>
 </header>
 
-<section class="pcv-profile">
-  <h2 class="pcv-h">${t.print.profile}</h2>
-  <p>${t.about.body.join(' ')}</p>
-</section>
-
-<div class="pcv-cols">
-  <div>
+<div class="pcv-body">
+  <div class="pcv-main">
+    <section class="pcv-profile">
+      <h2 class="pcv-h">${t.print.profile}</h2>
+      <p>${tie(t.print.summary)}</p>
+    </section>
     <section>
       <h2 class="pcv-h">${t.print.experience}</h2>
-    ${jobs.map(job => {
-      const x = t.experience.jobs[job.id]
-      const org = x.org ?? job.org ?? ''
-      return `
-    <article class="pcv-job">
-      <header>
-        <h3>${x.role} <span>· ${job.url ? `<a href="${job.url}">${org}</a>` : org}</span></h3>
-        <p>${period(t, job.from, job.to)}</p>
-      </header>
-      <p class="pcv-sub">${x.summary}</p>
-      ${x.points.length ? `<ul>${x.points.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
-    </article>`
-    }).join('')}
-    </section>
-    <section class="pcv-projects-wrap">
-      <h2 class="pcv-h">${t.print.projects}</h2>
-      <div class="pcv-projects">
-        ${projects.filter(p => p.printed !== false).map(p => `
-        <article>
-          <h3>${p.name}${p.url ? ` <a href="${p.url}">${host(p.url)}</a>` : ' <span>Hack-a-TON × Prague</span>'}</h3>
-          <p>${firstSentence(t.projects.items[p.id])}</p>
-        </article>`).join('')}
-      </div>
+      ${jobs.map(job => {
+        const x = t.experience.jobs[job.id]
+        const org = x.org ?? job.org ?? ''
+        return `
+      <article class="pcv-job${job.to === undefined ? ' is-now' : ''}">
+        <header>
+          <h3>${x.role}</h3>
+          <p class="pcv-org">${job.url ? `<a href="${job.url}">${org}</a>` : org}</p>
+          <p class="pcv-period">${period(t, job.from, job.to)}</p>
+        </header>
+        <p class="pcv-sub">${tie(x.summary)}</p>
+        ${x.points.length ? `<ul>${x.points.map((p, i) => point(p, i < (job.lead ?? 0))).join('')}</ul>` : ''}
+      </article>`
+      }).join('')}
     </section>
   </div>
 
-  <aside>
+  <aside class="pcv-side">
     <section>
       <h2 class="pcv-h">${t.print.skills}</h2>
       ${(Object.entries(stack) as [StackId, string[]][]).map(([id, items]) => `
-      <div class="pcv-skill">
+      <div class="pcv-skill${id === printFocus ? ' is-focus' : ''}">
         <h3>${t.stack.groups[id]}</h3>
-        <p>${items.map(s => `<span>${s}</span>`).join(' ')}</p>
+        <div class="pcv-tags"><p>${items.map(s => `<span>${s}</span>`).join(' ')}</p></div>
       </div>`).join('')}
+    </section>
+    <section>
+      <h2 class="pcv-h">${t.print.projects}</h2>
+      <ul class="pcv-projects">
+        ${projects.filter(p => p.printed !== false).map(p => `
+        <li><h3>${p.name}</h3>${p.url ? `<a href="${p.url}">${host(p.url)}</a>` : '<span>Hack-a-TON × Prague</span>'}</li>`).join('')}
+      </ul>
     </section>
     <section>
       <h2 class="pcv-h">${t.education.title}</h2>
       ${education.filter(e => e.printed !== false).map(e => `
       <div class="pcv-item">
         <h3>${t.education[e.id].school}</h3>
-        <p>${t.education[e.id].detail}</p>
+        <p>${tie(t.education[e.id].detail)}</p>
         <p class="pcv-when">${e.from} — ${e.to}</p>
       </div>`).join('')}
     </section>
@@ -560,8 +609,8 @@ function printCv(t: Dict, lang: Lang) {
       ${awards.map(a => `
       <div class="pcv-item">
         <h3><a href="${a.url}">${t.awards[a.id].name}</a></h3>
-        <p>${t.awards[a.id].detail}</p>
         <p class="pcv-when">${a.year}</p>
+        <p>${tie(t.awards[a.id].detail)}</p>
       </div>`).join('')}
     </section>
   </aside>
@@ -605,7 +654,7 @@ function render(lang: Lang, animate: boolean) {
 }
 
 function revealOnScroll(animate: boolean) {
-  const els = app.querySelectorAll<HTMLElement>('.reveal')
+  const els = app.querySelectorAll<HTMLElement>('.reveal, .zero-steps > li')
   const io = new IntersectionObserver(entries => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target) }
   }, { rootMargin: '0px 0px -8% 0px' })

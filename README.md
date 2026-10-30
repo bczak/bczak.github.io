@@ -9,3 +9,4 @@ Jakhongir Tashpulatov, full-stack developer. Live at https://bczak.github.io/ in
 - Print / Save as PDF gives a one-page A4 CV in the current language. `?print` shows that sheet on screen.
 - Pushing to `main` deploys automatically (`.github/workflows/deploy.yml`), and it redeploys daily
 - GitHub activity comes from `src/github.json`. Every deploy refreshes it; to refresh locally run `GITHUB_TOKEN=$(gh auth token) npm run github`
+- The link preview `public/og.png` is a 1200×630 screenshot of `scripts/og.html`

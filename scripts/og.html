@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+@font-face { font-family: Unbounded; src: url(../node_modules/@fontsource-variable/unbounded/files/unbounded-latin-wght-normal.woff2); font-weight: 100 900; }
+@font-face { font-family: Inter; src: url(../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2); font-weight: 100 900; }
+@font-face { font-family: Mono; src: url(../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2); font-weight: 100 900; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; overflow: hidden; background: #07080a; color: #eceef2; font-family: Inter; -webkit-font-smoothing: antialiased; }
+body { position: relative; padding: 76px 80px; }
+body::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgb(255 255 255 / .035) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .035) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 80% 75% at 20% 10%, #000 20%, transparent 80%); }
+body::after { content: ""; position: absolute; inset: 0; background: radial-gradient(38% 50% at 6% 0%, rgb(198 255 61 / .16), transparent 70%), radial-gradient(40% 55% at 92% 8%, rgb(163 151 255 / .14), transparent 70%), radial-gradient(40% 50% at 70% 100%, rgb(94 230 255 / .06), transparent 70%); filter: blur(20px); }
+.top, .bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 18px; font: 600 27px/1 Unbounded; letter-spacing: -.01em; }
+.brand svg { width: 34px; height: 34px; }
+.status { display: inline-flex; align-items: center; gap: 14px; padding: 13px 22px 13px 20px; border: 1px solid rgb(198 255 61 / .3); border-radius: 999px; background: rgb(198 255 61 / .07); color: #e4ffad; font: 500 17px/1 Mono; }
+.status i { width: 9px; height: 9px; border-radius: 9px; background: #c6ff3d; box-shadow: 0 0 12px #c6ff3d; }
+h1 { position: relative; z-index: 1; margin-top: 70px; font: 700 96px/.98 Unbounded; letter-spacing: -.045em; }
+h1 span { display: block; width: fit-content; }
+.grad { background: linear-gradient(95deg, #c6ff3d 0%, #8dffb4 40%, #5ee6ff 72%, #a397ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 6px; }
+.role { position: relative; z-index: 1; margin-top: 34px; font: 500 29px/1.2 Mono; }
+.role b { color: #c6ff3d; font-weight: 500; }
+.bottom { position: absolute; left: 80px; right: 80px; bottom: 70px; }
+.tech { color: #8e94a0; font: 400 19px/1 Mono; }
+.langs { display: flex; gap: 10px; }
+.langs span { display: grid; place-items: center; width: 50px; height: 40px; border: 1px solid rgb(255 255 255 / .1); border-radius: 999px; color: #c9cdd4; font: 600 16px/1 Mono; }
+.langs span:first-child { background: #c6ff3d; border-color: #c6ff3d; color: #0a0b0d; }
+</style></head><body>
+<div class="top">
+  <div class="brand"><svg viewBox="0 0 32 32"><path d="M16 2.5 27.7 9.25 16 16 4.3 9.25Z" fill="#dcff7a"/><path d="M4.3 9.25 16 16v13.5L4.3 22.75Z" fill="#b2ee2a"/><path d="M27.7 9.25 16 16v13.5l11.7-6.75Z" fill="#6e9c10"/></svg>bczak</div>
+  <div class="status"><i></i>Open to new roles</div>
+</div>
+<h1><span>Jakhongir</span><span class="grad">Tashpulatov</span></h1>
+<p class="role"><b>&gt;</b> Full-stack developer · Prague</p>
+<div class="bottom">
+  <p class="tech">TypeScript · React · Node · Java · Solidity · Docker · CI/CD</p>
+  <div class="langs"><span>EN</span><span>CS</span><span>RU</span></div>
+</div>
+</body></html>

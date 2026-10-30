@@ -138,6 +138,8 @@
   .pulse { position: relative; width: .5rem; height: .5rem; border-radius: 99px; background: var(--color-lime); }
   .pulse::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: inherit; animation: ping 1.8s cubic-bezier(0, 0, .2, 1) infinite; }
   .hero-name { margin-top: 1.75rem; font: 700 clamp(2.3rem, 10vw, 4.9rem)/.98 var(--font-display); letter-spacing: -.04em; }
+  /* The hero column is narrower than 10vw-per-letter below ~1200px; keep the surname inside it. */
+  @media (min-width: 1024px) { .hero-name { font-size: min(4.9rem, 6.5vw); } }
   .hero-name span { display: block; }
   .hero-role { margin-top: 1.4rem; font: 500 clamp(1rem, 2.2vw, 1.3rem)/1.3 var(--font-mono); }
   .hero-role::before { content: "> "; color: var(--color-lime); }
@@ -229,6 +231,40 @@
   .ai-tools .chips { margin-top: 0; }
   .ai-tools .chips li { border-color: rgb(198 255 61 / .3); color: var(--color-lime); font-size: .85rem; }
   .ai-tools p { color: var(--color-dim); font: .72rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .12em; }
+  /* Zero to production: jobs joined by rail segments. Each check lights up as its stage scrolls in and its
+     segment fills on the way to the next job; on desktop they all arrive together, so they stagger by --i.
+     Seven stages, so six segments share one gradient (600%). */
+  .zero { margin-top: 1rem; padding: 1.6rem; background: radial-gradient(70% 120% at 100% 0%, rgb(163 151 255 / .09), transparent 60%), linear-gradient(180deg, rgb(255 255 255 / .035), rgb(255 255 255 / .012)); }
+  .zero-head { display: grid; gap: 1.1rem; }
+  @media (min-width: 960px) { .zero-head { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.6rem; } }
+  .zero-head h3 { font: 600 1.15rem/1.3 var(--font-display); letter-spacing: -.015em; }
+  .zero-head h3 + p { margin-top: .5rem; max-width: 44rem; color: var(--color-soft); font-size: .95rem; line-height: 1.6; text-wrap: pretty; }
+  .zero-run { display: inline-flex; align-items: center; gap: .45rem; justify-self: start; padding: .4rem .7rem; border: 1px solid rgb(198 255 61 / .25); border-radius: .5rem; background: rgb(198 255 61 / .06); color: var(--color-lime); font: 500 .72rem/1.3 var(--font-mono); }
+  .zero-steps { --rail: 1.05rem; --gap: 1.1rem; display: grid; gap: var(--gap); margin-top: 1.75rem; }
+  .zero-steps > li { --t: .25s; position: relative; display: grid; gap: .55rem; padding-left: calc(var(--rail) * 2 + .6rem); }
+  .zero-steps > li:not(:last-child)::before, .zero-steps > li:not(:last-child)::after { content: ""; position: absolute; left: calc(var(--rail) - 1px); top: var(--rail); bottom: calc(-1 * var(--gap) - var(--rail)); width: 2px; background: var(--color-line); }
+  .zero-steps > li:not(:last-child)::after { background: linear-gradient(var(--color-lime), var(--color-cyan) 60%, var(--color-violet)) 0 calc(var(--i) * 20%) / 100% 600%; transform-origin: top; transition: scale .22s linear var(--t); }
+  .zero-steps > li:not(.is-in)::after { scale: 1 0; }
+  .zero-step { display: flex; align-items: center; gap: .6rem; min-height: calc(var(--rail) * 2); font: 600 .98rem/1.2 var(--font-display); letter-spacing: -.01em; }
+  .zero-dot { position: absolute; left: 0; top: 0; z-index: 1; display: grid; place-items: center; width: calc(var(--rail) * 2); height: calc(var(--rail) * 2); border: 1px solid rgb(198 255 61 / .35); border-radius: 99px; background: #101407; color: var(--color-lime); box-shadow: 0 0 0 4px #0c0d10; transition: background .35s var(--t), color .35s var(--t), box-shadow .35s var(--t); }
+  .zero-steps > li.is-in .zero-dot { background: var(--color-lime); color: #0a0b0d; box-shadow: 0 0 0 4px #0c0d10, 0 0 18px rgb(198 255 61 / .45); }
+  .zero-n { color: var(--color-dim); font: 500 .7rem/1 var(--font-mono); letter-spacing: .06em; }
+  .zero-steps ul { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .zero-steps ul li { padding: .36rem .6rem; border: 1px solid var(--color-line); border-radius: 999px; background: rgb(255 255 255 / .02); color: var(--color-muted); font: .72rem/1 var(--font-mono); transition: border-color .2s, color .2s; }
+  .zero-steps ul li:hover { border-color: rgb(198 255 61 / .45); color: var(--color-lime); }
+  /* Side by side from 1200px. Support has the longest name, so the last column is a little wider; the names
+     share a subgrid row, so every stage's tools start on one line even when a name wraps. */
+  @media (min-width: 1200px) {
+    .zero-steps { --gap: 1rem; grid-template-columns: repeat(6, minmax(0, 1fr)) minmax(0, 1.3fr); grid-template-rows: auto auto; margin-top: 2rem; }
+    .zero-steps > li { --t: calc(.35s + var(--i) * .22s); grid-row: span 2; grid-template-rows: subgrid; row-gap: .8rem; padding-left: 0; }
+    .zero-steps > li:not(:last-child)::before, .zero-steps > li:not(:last-child)::after { left: var(--rail); right: calc(-1 * var(--gap) - var(--rail)); top: calc(var(--rail) - 1px); bottom: auto; width: auto; height: 2px; }
+    .zero-steps > li:not(:last-child)::after { background: linear-gradient(90deg, var(--color-lime), var(--color-cyan) 60%, var(--color-violet)) calc(var(--i) * 20%) 0 / 600% 100%; transform-origin: left; }
+    .zero-steps > li:not(.is-in)::after { scale: 0 1; }
+    .zero-step { flex-direction: column; align-items: flex-start; gap: .55rem; padding-top: calc(var(--rail) * 2 + .7rem); }
+    .zero-steps ul { flex-direction: column; align-items: flex-start; }
+  }
+  /* Tablets and small laptops: stage name and its tools on one row. */
+  @media (min-width: 640px) and (max-width: 1199.98px) { .zero-steps > li { grid-template-columns: 11rem minmax(0, 1fr); align-items: center; column-gap: 1rem; } }
   .services { display: grid; gap: 1rem; margin-top: 1rem; }
   @media (min-width: 640px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1024px) { .services { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -436,95 +472,152 @@
   .reveal { opacity: 1; translate: none; transition: none; }
   .marquee-track, body::after { animation: none; }
   .gh-cal i { transition: none; }
+  .zero-steps > li::after, .zero-dot { transition: none; }
 }
 
 /* ---------- Print: a separate A4 layout ---------- */
 
 #print-cv { display: none; }
 
+/* Full bleed: the page has no margin and the sheet pads itself. One page, so no footer or page counter. */
 @media print {
-  @page {
-    size: A4;
-    margin: 10mm 12mm 12mm;
-    @bottom-left { content: "Jakhongir Tashpulatov · bczak.github.io"; font: 6.8pt "Inter Variable", sans-serif; color: #9097a0; }
-    @bottom-right { content: counter(page) " / " counter(pages); font: 6.8pt "Inter Variable", sans-serif; color: #9097a0; }
-  }
+  @page { size: A4; margin: 0; }
   :root { color-scheme: light; }
   html, body { background: #fff !important; }
   body::before, body::after, #app { display: none !important; }
   #print-cv { display: block; }
 }
 
-/* ?print previews the A4 sheet on screen. */
+/* ?print previews the A4 sheet on screen, for checking it without the print dialog. */
 html.print-preview { background: #d5d8dd; color-scheme: light; }
 html.print-preview body { background: transparent; }
 html.print-preview body::before, html.print-preview body::after, html.print-preview #app { display: none; }
-html.print-preview #print-cv { display: block; width: 210mm; min-height: 297mm; margin: 2rem auto; padding: 10mm 12mm 12mm; background: #fff; box-shadow: 0 12px 48px rgb(0 0 0 / .18); }
+html.print-preview #print-cv { display: block; width: 210mm; min-height: 297mm; margin: 2rem auto; background: #fff; box-shadow: 0 12px 48px rgb(0 0 0 / .18); }
 
 #print-cv {
   --ink: #14161a;
-  --text: #33373e;
-  --muted: #646a74;
-  --rule: #e2e5e9;
+  --text: #30343b;
+  --muted: #5d636d;
+  --rule: #e1e4e8;
   --accent: #4a7a00;
   --mark: #a6e01f;
+  --night: #0b0c0f;
+  --pad: 12mm;
   color: var(--ink);
-  font: 8.4pt/1.42 var(--font-sans);
+  font: 7.7pt/1.38 var(--font-sans);
+  font-feature-settings: "cv08";
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 
   a { color: inherit; text-decoration: none; }
-  .icon { width: 3mm; height: 3mm; color: var(--ink); }
+  p, li { text-wrap: pretty; }
+  .nw { white-space: nowrap; }
+  /* Inter's space narrows at heavy weights until PDF text extractors drop it ("LeadTechEngineer"); a hair of
+     word-spacing keeps the words apart for ATS parsers. */
+  h1, h2, h3, b, .pcv-org { word-spacing: .04em; }
+  .icon { width: 2.8mm; height: 2.8mm; flex: none; }
 
-  .pcv-head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 8mm; padding-bottom: 4.5mm; border-bottom: 1.2pt solid var(--ink); }
-  .pcv-head::after { content: ""; position: absolute; left: 0; bottom: -2.4pt; width: 26mm; height: 3.6pt; background: var(--mark); }
-  .pcv-name { display: flex; align-items: center; gap: 3mm; }
-  .pcv-logo { width: 8.5mm; height: 8.5mm; flex: none; }
-  .pcv-name h1 { font: 700 21pt/1.05 var(--font-display); letter-spacing: -.025em; }
-  .pcv-role { margin-top: 1.8mm; color: var(--accent); font-size: 10.5pt; font-weight: 600; }
-  .pcv-role span { margin-left: 3mm; padding-left: 3mm; border-left: .8pt solid var(--rule); color: var(--muted); font-size: 8.4pt; font-weight: 500; }
-  .pcv-contacts { display: flex; flex-wrap: wrap; gap: 1.2mm 4.5mm; margin-top: 3mm; color: var(--text); font-size: 7.9pt; }
-  .pcv-contacts li { display: inline-flex; align-items: center; gap: 1.3mm; }
-  .pcv-contacts i { color: var(--muted); font-style: normal; }
-  .pcv-qr { display: flex; flex: none; flex-direction: column; align-items: center; gap: 1.2mm; color: var(--muted); font-size: 6.4pt; text-align: center; }
-  .pcv-qr svg { width: 18mm; height: 18mm; color: var(--ink); }
+  /* Dark band, like the hero on the site: glow, a faint grid that fades out, a gradient rule underneath.
+     All of it is background layers, and nothing in the sheet is positioned, so the PDF keeps its text in
+     reading order (band, profile, experience, sidebar) for ATS parsers. Top layer first. */
+  .pcv-band {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-between;
+    gap: 5mm;
+    padding: 9.5mm var(--pad) 8mm;
+    background:
+      linear-gradient(90deg, #c6ff3d, #8dffb4 40%, #5ee6ff 72%, #a397ff) bottom / 100% 1.4pt no-repeat,
+      radial-gradient(72mm 46mm at 4% 0%, rgb(166 224 31 / .2), transparent 70%),
+      radial-gradient(80mm 50mm at 74% -10%, rgb(163 151 255 / .2), transparent 70%),
+      radial-gradient(60mm 34mm at 46% 120%, rgb(94 230 255 / .07), transparent 70%),
+      radial-gradient(ellipse 70% 120% at 30% 0%, transparent 20%, var(--night) 85%),
+      linear-gradient(rgb(255 255 255 / .05) .5pt, transparent .5pt) -1mm -1mm / 7mm 7mm,
+      linear-gradient(90deg, rgb(255 255 255 / .05) .5pt, transparent .5pt) -1mm -1mm / 7mm 7mm,
+      var(--night);
+    color: #eceef2;
+  }
 
-  .pcv-h { display: flex; align-items: center; gap: 2.2mm; margin-bottom: 2.2mm; font: 600 7.8pt/1 var(--font-display); text-transform: uppercase; letter-spacing: .12em; break-after: avoid; }
-  .pcv-h::before { content: ""; width: 1.9mm; height: 1.9mm; flex: none; background: var(--mark); transform: rotate(45deg); }
+  .pcv-id { display: grid; }
+  .pcv-name, .pcv-sheen { grid-area: 1 / 1; }
+  .pcv-name { font: 700 20pt/1.02 var(--font-display); letter-spacing: -.035em; color: #f6f7f9; }
+  .pcv-name span { display: block; }
+  /* The surname stays plain white text. This strip over its line carries the site's gradient with darken
+     blending: it tints the light glyphs and leaves the band alone, which is darker in every channel. */
+  .pcv-sheen { align-self: end; height: calc(20pt * 1.02 + 1.2mm); margin-bottom: -1.2mm; background: linear-gradient(95deg, #c6ff3d 0%, #8dffb4 40%, #5ee6ff 72%, #a397ff 100%); mix-blend-mode: darken; }
+  .pcv-role { display: flex; align-items: center; gap: 2mm; margin-top: 2.6mm; color: #f2f4f6; font: 500 9.6pt/1.2 var(--font-mono); letter-spacing: -.01em; white-space: nowrap; }
+  .pcv-role::before { content: ""; width: 1.4mm; height: 1.4mm; margin-right: .3mm; border: solid #c6ff3d; border-width: 1.2pt 1.2pt 0 0; transform: rotate(45deg); }
+
+  .pcv-id, .pcv-qr { align-self: end; }
+  /* Both lists run the full height of the band, so the rules match; their rows sit on the role's baseline. */
+  .pcv-contacts, .pcv-facts { display: grid; align-content: end; gap: 1.1mm; padding-left: 4mm; border-left: .6pt solid rgb(255 255 255 / .12); color: #dfe2e7; font-size: 7.5pt; line-height: 1.25; white-space: nowrap; }
+  .pcv-contacts li { display: flex; align-items: center; gap: 1.8mm; }
+  .pcv-band .icon { color: #c6ff3d; }
+  /* Languages line up as a small table: name, then level. */
+  .pcv-facts { grid-template-columns: auto auto auto; column-gap: 1.8mm; }
+  .pcv-facts li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; }
+  .pcv-facts span { grid-column: 2; }
+  .pcv-facts li:first-child span { grid-column: 2 / -1; }
+  .pcv-facts i { grid-column: 3; padding-left: .4mm; color: #8e94a0; font-style: normal; }
+
+  /* Dark on a white tile, so every scanner reads it. */
+  .pcv-qr { display: grid; justify-items: center; gap: 2mm; color: #9aa0aa; font-size: 7.2pt; line-height: 1.2; text-align: center; }
+  .pcv-qr svg { width: 14mm; height: 14mm; padding: 1.3mm; border-radius: 1.4mm; background: #fff; color: var(--night); }
+
+  /* White body in two columns. */
+  .pcv-body { display: grid; grid-template-columns: minmax(0, 1fr) 58mm; gap: 7mm; padding: 5.5mm var(--pad) 0; }
+  .pcv-main > section + section, .pcv-side > section + section { margin-top: 5mm; }
+
+  .pcv-h { display: flex; align-items: center; gap: 2mm; margin-bottom: 2.3mm; font: 600 7.4pt/1 var(--font-display); text-transform: uppercase; letter-spacing: .12em; word-spacing: .1em; break-after: avoid; }
+  .pcv-h::before { content: ""; width: 1.8mm; height: 1.8mm; flex: none; background: var(--mark); transform: rotate(45deg); }
   .pcv-h::after { content: ""; flex: 1; height: .6pt; background: var(--rule); }
 
-  .pcv-profile { margin-top: 4.4mm; }
-  .pcv-profile p { color: var(--text); font-size: 8.5pt; line-height: 1.46; }
+  .pcv-profile p { color: var(--ink); font-size: 8.1pt; line-height: 1.46; }
 
-  .pcv-cols { display: grid; grid-template-columns: minmax(0, 1fr) 58mm; gap: 6.5mm; margin-top: 4.2mm; }
   .pcv-job { break-inside: avoid; }
-  .pcv-job + .pcv-job { margin-top: 2.8mm; }
-  .pcv-job header { display: flex; align-items: baseline; justify-content: space-between; gap: 3mm; }
-  .pcv-job h3 { font-size: 9.4pt; font-weight: 700; }
-  .pcv-job h3 span { color: var(--accent); font-weight: 600; }
-  .pcv-job header p { color: var(--muted); font: 7.4pt var(--font-mono); white-space: nowrap; }
-  .pcv-sub { margin-top: .7mm; color: var(--text); }
-  .pcv-job ul { display: grid; gap: .4mm; margin-top: 1mm; }
-  .pcv-job li { position: relative; padding-left: 3.3mm; color: var(--text); }
-  .pcv-job li::before { content: ""; position: absolute; left: .45mm; top: .6em; width: 1.25mm; height: 1.25mm; background: var(--mark); transform: rotate(45deg); }
+  .pcv-job + .pcv-job { margin-top: 3.4mm; }
+  .pcv-job header { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 4mm; align-items: baseline; }
+  .pcv-job h3 { font-size: 8.8pt; font-weight: 700; line-height: 1.3; }
+  .pcv-org { grid-row: 2; color: var(--accent); font-size: 7.8pt; font-weight: 600; line-height: 1.3; }
+  .pcv-period { grid-column: 2; grid-row: 1; color: var(--muted); font: 7.2pt var(--font-mono); white-space: nowrap; }
+  .pcv-sub { margin-top: .8mm; color: var(--text); }
+  .pcv-job ul { display: grid; gap: .45mm; margin-top: 1.1mm; }
+  .pcv-job li { padding-left: 3.2mm; color: var(--text); font-size: 7.7pt; line-height: 1.38; }
+  .pcv-job li::before { content: ""; display: inline-block; width: 1.2mm; height: 1.2mm; margin: 0 1.6mm 0 -2.8mm; vertical-align: .14em; background: var(--mark); transform: rotate(45deg); }
+  .pcv-job li b { color: var(--ink); font-weight: 650; }
 
-  aside section + section { margin-top: 3.8mm; }
-  .pcv-skill + .pcv-skill { margin-top: 1.6mm; }
-  .pcv-skill h3 { color: var(--muted); font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
-  /* Plain text, not chips: the full list has to fit the 58 mm column. */
-  .pcv-skill p { margin-top: .6mm; color: var(--text); font-size: 7.4pt; line-height: 1.42; }
+  /* The current role leads the page: a tinted panel with a lime edge. */
+  .pcv-job.is-now { margin-inline: -3mm; padding: 2.6mm 3mm 2.8mm; border-left: 1.6pt solid var(--mark); border-radius: 0 1.6mm 1.6mm 0; background: linear-gradient(100deg, #f3f9e4, #f6f7f9 70%); }
+  .is-now h3 { font: 700 10.5pt/1.2 var(--font-display); letter-spacing: -.02em; word-spacing: .18em; }
+  .is-now .pcv-org { margin-top: .4mm; font-size: 8.2pt; }
+  .is-now .pcv-period { color: var(--accent); font-weight: 600; }
+
+  .pcv-skill + .pcv-skill { margin-top: 1.7mm; }
+  .pcv-skill h3 { color: var(--ink); font-size: 7.3pt; font-weight: 700; }
+  /* Each item carries its separator in front. The paragraph hangs one separator into the left margin and its
+     wrapper hides that strip, so the dots that land at a line start vanish: no line starts or ends with one.
+     overflow, not clip-path: clip-path paints the lists last, and the PDF text would put them after Awards. */
+  .pcv-tags { overflow: hidden; margin-top: .2mm; }
+  .pcv-tags p { margin-left: -1.9mm; color: var(--text); font-size: 7.3pt; line-height: 1.38; }
   .pcv-skill span { white-space: nowrap; }
-  .pcv-skill span:not(:last-child)::after { content: "·"; margin-left: 1.1mm; color: #b4b9c0; }
-  .pcv-item { break-inside: avoid; }
-  .pcv-item + .pcv-item { margin-top: 2.2mm; }
-  .pcv-item h3 { font-size: 8.6pt; font-weight: 700; line-height: 1.3; }
-  .pcv-item p { color: var(--text); font-size: 7.9pt; }
-  .pcv-item .pcv-when { margin-top: .4mm; color: var(--muted); font: 7.2pt var(--font-mono); }
+  .pcv-skill span::before { content: "·"; display: inline-block; width: 1.9mm; padding-left: .25mm; color: #a3a9b1; }
+  /* The infrastructure group echoes the panel of the role it comes from. */
+  .pcv-skill.is-focus { margin-left: -2.4mm; padding: 1.6mm 1mm 1.8mm 2.4mm; border-left: 1.6pt solid var(--mark); border-radius: 0 1.4mm 1.4mm 0; background: linear-gradient(100deg, #f3f9e4, #f6f7f9 80%); }
+  .pcv-skill.is-focus + .pcv-skill { margin-top: 2.2mm; }
+  .pcv-skill.is-focus h3 { color: var(--accent); }
+  .pcv-skill.is-focus .pcv-tags p { color: var(--ink); }
 
-  .pcv-projects-wrap { margin-top: 4.2mm; }
-  .pcv-projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.6mm 5mm; }
-  .pcv-projects article { break-inside: avoid; }
-  .pcv-projects h3 { font-size: 8.7pt; font-weight: 700; }
-  .pcv-projects h3 a, .pcv-projects h3 span { margin-left: .8mm; color: var(--accent); font: 400 6.9pt var(--font-mono); }
-  .pcv-projects p { margin-top: .5mm; color: var(--text); font-size: 7.6pt; line-height: 1.4; }
+  .pcv-projects { display: grid; gap: .8mm; }
+  .pcv-projects li { display: flex; align-items: baseline; justify-content: space-between; gap: 2mm; }
+  .pcv-projects h3 { font-size: 7.6pt; font-weight: 700; }
+  .pcv-projects a { color: var(--accent); font: 7.2pt var(--font-mono); }
+  .pcv-projects span { color: var(--muted); font-size: 7.2pt; }
+
+  .pcv-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 3mm; align-items: baseline; break-inside: avoid; }
+  .pcv-item + .pcv-item { margin-top: 2mm; }
+  .pcv-item h3 { font-size: 7.8pt; font-weight: 700; line-height: 1.3; }
+  .pcv-item p { grid-column: 1 / -1; color: var(--text); font-size: 7.3pt; line-height: 1.36; }
+  /* An award's year sits beside its name; the degree's years, written last, go under the detail. */
+  .pcv-item .pcv-when { grid-column: 2; grid-row: 1; color: var(--muted); font: 7.2pt var(--font-mono); white-space: nowrap; }
+  .pcv-item .pcv-when:last-child { grid-column: 1; grid-row: auto; margin-top: .3mm; }
 }
